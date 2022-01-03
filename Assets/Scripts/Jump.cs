@@ -5,7 +5,7 @@ using UnityEngine;
 public class Jump : MonoBehaviour
 {
     private Rigidbody rigid;
-    public int JumpPower= 3;
+    public int JumpPower= 5;
     // Start is called before the first frame update
     void Start()
     {
