@@ -1105,7 +1105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   messages:
   - This is a desk
-  - Open the note
+  - turn off the light
 --- !u!114 &642262950
 MonoBehaviour:
   m_ObjectHideFlags: 0
