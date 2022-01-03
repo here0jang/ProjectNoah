@@ -6,7 +6,6 @@ public class Jump : MonoBehaviour
 {
     private Rigidbody rigid;
     public int JumpPower= 5;
-    public float power = 3.0f;
     // Start is called before the first frame update
     void Start()
     {
