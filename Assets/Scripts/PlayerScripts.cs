@@ -20,8 +20,8 @@ public class PlayerScripts : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        if(Input.GetMouseButtonDown(0))
+    { // 왼쪽 마우스 클릭 && 마우스가 UI 위에 있지 않음
+        if(Input.GetMouseButtonDown(0)&&!Extensions.IsMouseOverUI())
         {
            Onclick(); 
         }
@@ -35,8 +35,6 @@ public class PlayerScripts : MonoBehaviour
 
     void Onclick()
     {
-      
-
         RaycastHit hit;
         Ray camToScreen = mainCamera.ScreenPointToRay(Input.mousePosition);
 

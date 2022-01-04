@@ -36,7 +36,7 @@ public class DialogSystem : MonoBehaviour
 
         while(msgID < currentMessages.Count)
         {
-            if(Input.GetKeyDown(KeyCode.Space)||Input.GetMouseButtonDown(0))
+            if(Input.GetKeyDown(KeyCode.Space)||(Input.GetMouseButtonDown(0)&&Extensions.IsMouseOverUI()))
             {
                 msgID++;
 
