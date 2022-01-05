@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Cursor/CursorControls.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/UI/Cursor/CursorControls.inputactions'
 
 using System;
 using System.Collections;
