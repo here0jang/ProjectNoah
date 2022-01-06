@@ -23,7 +23,7 @@ public class DialogSystem : MonoBehaviour
         panel.SetActive(false);
     }
 
-    public void ShowMessages(List<string> messages, bool dialog, List<Actions> yesActions, List<Actions> noActions)
+    public void ShowMessages(List<string> messages)
     {
         currentMessages = messages;
         panel.SetActive(true);
