@@ -1278,12 +1278,12 @@ MonoBehaviour:
   - This is a desk
   - turn off the light
   enableDialog: 1
-  yesText: Awesome!
-  noText: Dang it!
   yesActions:
   - {fileID: 642262952}
   noActions:
   - {fileID: 642262949}
+  yesText: Awesome!
+  noText: Dang it!
 --- !u!114 &642262949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1299,10 +1299,10 @@ MonoBehaviour:
   messages:
   - Bad
   enableDialog: 0
-  yesText: 
-  noText: 
   yesActions: []
   noActions: []
+  yesText: 
+  noText: 
 --- !u!114 &642262950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1346,10 +1346,10 @@ MonoBehaviour:
   messages:
   - Nice
   enableDialog: 0
-  yesText: 
-  noText: 
   yesActions: []
   noActions: []
+  yesText: 
+  noText: 
 --- !u!1001 &666700843
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2375,7 +2375,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: 
-  speed: 7.500782
+  speed: 24.062443
   playerPosition: {x: 0, y: 0, z: 0}
   playerPrefabs: {fileID: 0}
   s_playerName: 
