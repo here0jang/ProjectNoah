@@ -38,6 +38,7 @@ public class InventoryEditor : Editor
             for (int i = 0; i < s_inventory.arraySize; i++)
             {
                 //draw every item entry
+                //DrawItemEntry(s_inventory.GetArrayElementAtIndex(i), i);
                 DrawItemEntry(s_inventory.GetArrayElementAtIndex(i), i);
             }
         }
@@ -65,14 +66,12 @@ public class InventoryEditor : Editor
 
         GUILayout.EndHorizontal();
 
-        EditorGUILayout.LabelField("Item Description" + item.FindPropertyRelative("itemDescription").stringValue, GUILayout.Height(70f));
+        EditorGUILayout.LabelField("Item Description: " + item.FindPropertyRelative("itemDescription").stringValue, GUILayout.Height(70f));
 
         GUILayout.BeginHorizontal();
 
         var spriteViewer = AssetPreview.GetAssetPreview(item.FindPropertyRelative("itemSprite").objectReferenceValue); // 오브젝트의 레퍼런스 밸류를 리턴함 (여기서는 스프라이트)
-        // Label 은 텍스트 뿐만 아니라 텍스쳐도 보여줄 수 있다
-        GUILayout.Label(spriteViewer);
-
+        GUILayout.Label(spriteViewer);  // Label 은 텍스트 뿐만 아니라 텍스쳐도 보여줄 수 있다
 
         if (item.FindPropertyRelative("allowMultiple").boolValue) // 1개만 가질 수 있는 아이템이면 (allowMultiple == false) 아이템의 양을 보여줄 필요 없음
             EditorGUILayout.PropertyField(item.FindPropertyRelative("amount")); // 아이템의 양을 보여줌

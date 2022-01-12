@@ -14,10 +14,10 @@ public class ItemDatabase : ScriptableObject // ScriptableObject 를 상속받음
 
     public List<string> ItemsNames { get { return itemsNames; } }
 
-    /* 새로운 아이템 정보를 아이템 리스트에 저장하는 메서드 */
+    /* 새로운 아이템이 들어오면 이것을 아이템 리스트에 저장하는 메서드 */
     public void AddItem(Item item)
     {
-        items.Add(item);
+        items.Add(item); // List<Item> items 에 새 아이템인 item 추가
         itemsNames.Add("");
     }
 
