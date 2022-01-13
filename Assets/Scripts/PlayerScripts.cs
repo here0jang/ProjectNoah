@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class PlayerScripts : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PlayerScripts : MonoBehaviour
 
     private bool turning; // default : false
     private Quaternion targetRot; // 플레이어의 처음 각도
+    [SerializeField] Button interactionButton; 
 
     // Start is called before the first frame update
     void Start()
@@ -51,6 +53,7 @@ public class PlayerScripts : MonoBehaviour
                 if(interactable!=null) // 부딪힌 오브젝트에 interactable 컴포넌트가 붙어있으면
                 {   
                     MovePlayer(interactable.InteractPosition()); // NPC 의 위치로 플레이어를 이동시킴
+                    interactionButton.transform.gameObject.SetActive(true);
                     interactable.Interact(this); // this : PlayerScript 전달 ( argument ), 현재 PlayerScript 에 있으므로 this 로 전달 가능
                     // 순서가 : PlayerScripts 에서 NPC 클릭 -> Interactable 스크립트 - Interact - actions -> messageAction 실행 - > DialogSystem - ShowMessages 실행 
                 }
@@ -74,8 +77,9 @@ public class PlayerScripts : MonoBehaviour
     void MovePlayer(Vector3 targetPosition)
     {
         turning = false; // 움직일때마다 turning 을 거짓으로 만듬
-       agent.SetDestination(targetPosition);
+        agent.SetDestination(targetPosition);
         DialogSystem.Instance.HideDialog(); // 대화 도중에 움직이면 대화창을 끔
+        interactionButton.transform.gameObject.SetActive(false);
     }
 
     /* 플레이어가 NPC 를 바라보도록 각도를 바꿔주는 메서드 */

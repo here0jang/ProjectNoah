@@ -26,7 +26,7 @@ public class Item
 
     /* 상단의 serializeField 변수들을 다른 스크립트에서도 접근 가능하게, 프로퍼티 ( 대문자, 대문자 ) */
     public int ItemId { get { return itemId;  } } // get : 값을 가져오는 것만 가능, set : 값 수정 가능
-    public string ItemName { get { return ItemName; } }
+    public string ItemName { get { return itemName; } }
     public string ItemDesc { get { return itemDescription; } }
     public Sprite ItemSprite { get { return itemSprite; } }
     public bool AllowMultiple { get { return allowMultiple; } }
