@@ -25,6 +25,13 @@ MonoBehaviour:
     itemSprite: {fileID: 21300000, guid: 1f11632b4f6eb8e468ddc007ccab340e, type: 3}
     allowMultiple: 0
     amount: 0
+  - itemId: 2
+    itemName: chicken
+    itemDescription: 
+    itemSprite: {fileID: 0}
+    allowMultiple: 1
+    amount: 0
   itemsNames:
   - pizza
   - key
+  - chicken
