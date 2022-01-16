@@ -14,6 +14,8 @@ public class PlayerScripts : MonoBehaviour
     public Button barkButton, pushButton, observeButton, sniffButton, upButton;
     public DetectCollision DetectColl;
 
+    private Vector3 PlayerPosition = new Vector3();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,7 +44,6 @@ public class PlayerScripts : MonoBehaviour
     }
     void Onclick()
     {
-
         RaycastHit hit; // Difference Between RaycastHit and Ray?? 
         Ray camToScreen = mainCamera.ScreenPointToRay(Input.mousePosition);
         // 왼쪽 마우스 클릭을 감지하면      // Q, 이거랑 아래 hit.collider!=nulll 한번에 쓰면 안됨?? 
@@ -50,14 +51,13 @@ public class PlayerScripts : MonoBehaviour
         {
             if (hit.collider != null) // 무언가를 치면
             {
+                Interactable interactable = hit.collider.GetComponent<Interactable>(); // interactable : 부딪힌 오브젝트 or NPC 에 붙어있는 Interactable 컴포넌트
                 if (DetectColl.iscollision == true) // 플레이어가 오브젝트 가까이에 있으면
                 {
-                    Interactable interactable = hit.collider.GetComponent<Interactable>(); // interactable : 부딪힌 오브젝트 or NPC 에 붙어있는 Interactable 컴포넌트
-
                     if (interactable != null) // 부딪힌 오브젝트에 interactable 컴포넌트가 붙어있으면
                     {
                         MovePlayer(interactable.InteractPosition()); // NPC 의 위치로 플레이어를 이동시킴
-
+                        PlayerPosition = this.transform.position;
                         barkButton.transform.gameObject.SetActive(true);
                         pushButton.transform.gameObject.SetActive(true);
                         observeButton.transform.gameObject.SetActive(true);
@@ -70,6 +70,7 @@ public class PlayerScripts : MonoBehaviour
                     {
                         MovePlayer(hit.point); // hit.point : 이동 목적지
                     }
+
                     //DetectColl.iscollision = false;
                 }
 
