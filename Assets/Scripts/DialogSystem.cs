@@ -11,8 +11,8 @@ public class DialogSystem : MonoBehaviour
    // get set 나중에 찾아보기, 
     public static DialogSystem Instance { get; private set; }
 
-    [SerializeField] TMPro.TextMeshProUGUI messageText, yesText, noText;
-    [SerializeField] GameObject panel;
+    [SerializeField] TMPro.TextMeshProUGUI messageText, yesText, noText, smellText;
+    [SerializeField] GameObject panel, smellpanel;
     [SerializeField] Button yesButton, noButton;
 
     private List<string> currentMessages = new List<string>();
@@ -26,6 +26,7 @@ public class DialogSystem : MonoBehaviour
     void Start()
     {
         panel.SetActive(false);
+        smellpanel.SetActive(false);
     }
     // 메서드를 사용할 때마다 항상 argument를 전달할 필요가 없기 때문에  List<Actions> 에 기본 값 할당 null
     public void ShowMessages(List<string> messages, bool dialog, List<Actions> yesActions = null, List<Actions> noActions = null, string yes = "Yes", string no = "No" )
@@ -35,10 +36,11 @@ public class DialogSystem : MonoBehaviour
 
         currentMessages = messages; // NPC A 의 대화 리스트들을 현대 대화리스트로 전달
         panel.SetActive(true);
+        smellpanel.SetActive(true);
         // 코루틴 시작 전에 버튼에 값 할당
 
         /* 각 버튼을 눌렀을 때 정해져있는 리액션들이 존재하면 그 리액션들을 실행시킴 */
-        if(dialog) // 다음 선택지가 있으면
+        if (dialog) // 다음 선택지가 있으면
         {
             /* Yes Button*/
             yesText.text = yes; // Yes 버튼에 버튼 위에 올라갈 텍스트 parameter 전달
@@ -101,6 +103,7 @@ public class DialogSystem : MonoBehaviour
 
         if(!useDialog) // 다음 선택지가 없으면 
             panel.SetActive(false);
+            smellpanel.SetActive(false);
     }
 
     /* 누른 버튼에 맞는 리액션을 실행시켜주는 메서드 */
@@ -121,5 +124,11 @@ public class DialogSystem : MonoBehaviour
     public void HideDialog()
     {
         panel.SetActive(false);
+        smellpanel.SetActive(false);
+    }
+
+    public void Smell(string smell = "Smells like tin spirit")
+    {
+        smellText.text = smell;
     }
 }
