@@ -40,7 +40,6 @@ public class PlayerScripts : MonoBehaviour
         }
         
     }
-
     void Onclick()
     {
 
@@ -71,7 +70,7 @@ public class PlayerScripts : MonoBehaviour
                     {
                         MovePlayer(hit.point); // hit.point : 이동 목적지
                     }
-                    DetectColl.iscollision = false;
+                    //DetectColl.iscollision = false;
                 }
 
                 else
@@ -80,10 +79,11 @@ public class PlayerScripts : MonoBehaviour
                 }
             }
         }
-     
+
     }
 
-    /*
+
+    /*  
     void Onclick()
     {
         RaycastHit hit; // Difference Between RaycastHit and Ray?? 
