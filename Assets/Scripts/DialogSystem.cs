@@ -103,6 +103,7 @@ public class DialogSystem : MonoBehaviour
 
         if(!useDialog) // 다음 선택지가 없으면 
             panel.SetActive(false);
+            smellpanel.SetActive(false);
     }
 
     /* 누른 버튼에 맞는 리액션을 실행시켜주는 메서드 */
@@ -123,6 +124,7 @@ public class DialogSystem : MonoBehaviour
     public void HideDialog()
     {
         panel.SetActive(false);
+        smellpanel.SetActive(false);
     }
 
     public void Smell(string smell = "Smells like tin spirit")
