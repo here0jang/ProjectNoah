@@ -4,7 +4,7 @@ using UnityEngine;
 // NPC 에게 붙는 스크립트
 public class Interactable : MonoBehaviour
 {
-    [SerializeField] Actions[] actionss;
+    [SerializeField] Actions[] actionss; // NPC 와의 첫 번째 상호작용
     [SerializeField] float distancePosition = 1f; // NPC 와의 약간의 distance
 
     /* NPC 의 위치를 반환하는 메서드 */
