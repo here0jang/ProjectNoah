@@ -497,7 +497,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 31831786}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 62b06a3dbee971f4cbb4b0b3b0af9dcb, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 7a8c9cf71147f554da6309aa366c1337, type: 3}
   m_Controller: {fileID: 9100000, guid: cfa8e30d9527da846995cff4f52cf81c, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
@@ -2371,9 +2371,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: e465beebc90e1b946b2e8a935904c305, type: 3}
     m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 21300000, guid: 996ffec51496e9e459bebc3bfa39d11f, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -4926,12 +4926,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66e99a6b44940eb49a0e5f44b7121db5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerAnim: {fileID: 1669327547}
+  PlayerAnim: {fileID: 31831792}
   barkButton: {fileID: 842600018}
   pushButton: {fileID: 96485573}
   observeButton: {fileID: 1119852979}
   sniffButton: {fileID: 382757704}
   upButton: {fileID: 375621072}
+  smellText: Smells like tin spirit
 --- !u!4 &848499975 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 414908, guid: cc990f4eda1da5b469dbce762b0e70ba, type: 3}
@@ -8529,11 +8530,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!95 &1669327547 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 9500000, guid: 62b06a3dbee971f4cbb4b0b3b0af9dcb, type: 3}
-  m_PrefabInstance: {fileID: 373074963}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1674129025
 GameObject:
   m_ObjectHideFlags: 0
@@ -9630,11 +9626,13 @@ MonoBehaviour:
   messages:
   - This is a cockpit
   - I need a box
-  enableDialog: 0
-  yesActions: []
-  noActions: []
-  yesText: 
-  noText: 
+  enableDialog: 1
+  yesActions:
+  - {fileID: 1845242610}
+  noActions:
+  - {fileID: 1845242609}
+  yesText: Okay
+  noText: No
 --- !u!114 &1845242607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9647,9 +9645,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c923382cf72fa04d8bb12a211717b0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distancePosition: 1
   actionss:
   - {fileID: 1845242606}
-  distancePosition: 1
+  barkButton: {fileID: 842600018}
+  pushButton: {fileID: 96485573}
+  observeButton: {fileID: 1119852979}
+  sniffButton: {fileID: 382757704}
+  upButton: {fileID: 375621072}
 --- !u!65 &1845242608
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9663,6 +9666,44 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.05000002, y: 0.049999993, z: 0.03}
   m_Center: {x: 0.02500001, y: 0.024999997, z: 0.007518706}
+--- !u!114 &1845242609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845242605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c2ad1f749afad1498bcdff17786181d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  messages:
+  - I don't like it
+  enableDialog: 0
+  yesActions: []
+  noActions: []
+  yesText: 
+  noText: 
+--- !u!114 &1845242610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845242605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c2ad1f749afad1498bcdff17786181d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  messages:
+  - Good
+  enableDialog: 0
+  yesActions: []
+  noActions: []
+  yesText: 
+  noText: 
 --- !u!1001 &1849167351
 PrefabInstance:
   m_ObjectHideFlags: 0

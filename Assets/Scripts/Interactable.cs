@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 // NPC 에게 붙는 스크립트
 public class Interactable : MonoBehaviour
 {
-    [SerializeField] Actions[] actionss; // NPC 와의 첫 번째 상호작용
     [SerializeField] float distancePosition = 1f; // NPC 와의 약간의 distance
+    [SerializeField] Actions[] actionss; // NPC 와의 첫 번째 상호작용
+
+    public Button barkButton, pushButton, observeButton, sniffButton, upButton;
 
     /* NPC 의 위치를 반환하는 메서드 */
     public Vector3 InteractPosition()
@@ -33,12 +36,23 @@ public class Interactable : MonoBehaviour
 
         // 2) 플레이어가 NPC 위치로 도착하면 NPC를 바라보게 각도를 바꿈 
         player.SetDirection(transform.position);
+        barkButton.transform.gameObject.SetActive(true);
+        pushButton.transform.gameObject.SetActive(true);
+        observeButton.transform.gameObject.SetActive(true);
+        sniffButton.transform.gameObject.SetActive(true);
+        upButton.transform.gameObject.SetActive(true);
 
+
+
+
+
+        /*
         // 3) NPC 와 상호작용함
         for(int i=0; i<actionss.Length; i++)
         {
             actionss[i].Act(); // Actions 클래스의 Act() 메서드를 실행함
             // Q. 이걸로 actions 클래스를 상속받은 다른 클래스들을 전부 부를 수 있는 건가? 
         }
+        */
     }
 }

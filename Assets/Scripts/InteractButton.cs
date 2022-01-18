@@ -7,6 +7,7 @@ public class InteractButton : MonoBehaviour
 {
     public Animator PlayerAnim;
     public Button barkButton, pushButton, observeButton, sniffButton, upButton;
+    public string smellText = "Smells like tin spirit";
 
     void Awake()
     {
@@ -19,20 +20,38 @@ public class InteractButton : MonoBehaviour
 
     void playerBark()
     {
-        PlayerAnim.SetBool("IsBarking", true);
-        StartCoroutine("ChangeBarkFalse");
+        barkButton.transform.gameObject.SetActive(false);
+        pushButton.transform.gameObject.SetActive(false);
+        observeButton.transform.gameObject.SetActive(false);
+        sniffButton.transform.gameObject.SetActive(false);
+        upButton.transform.gameObject.SetActive(false);
+        Invoke("ChangeBarkTrue", 0.5f);
+
+        Invoke("ChangeBarkFalse", 2);
     }
 
+    void ChangeBarkFalse()
+    {
+        PlayerAnim.SetBool("IsBarking", false);
+    }
+
+    void ChangeBarkTrue()
+    {
+        PlayerAnim.SetBool("IsBarking", true);
+    }
+    /*
     IEnumerator ChangeBarkFalse()
     {
         yield return new WaitForSeconds(2f);
         PlayerAnim.SetBool("IsBarking", false);
+
         barkButton.transform.gameObject.SetActive(false);
         pushButton.transform.gameObject.SetActive(false);
         observeButton.transform.gameObject.SetActive(false);
         sniffButton.transform.gameObject.SetActive(false);
         upButton.transform.gameObject.SetActive(false);
     }
+    */
 
     void playerPush()
     {
@@ -69,6 +88,7 @@ public class InteractButton : MonoBehaviour
     void playerSniff()
     {
         PlayerAnim.SetBool("IsSniffing", true);
+        DialogSystem.Instance.Smell(smellText);
         StartCoroutine("ChangeSniffFalse");
     }
 

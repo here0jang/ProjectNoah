@@ -11,6 +11,7 @@ public class PlayerScripts : MonoBehaviour
 
     private bool turning; // default : false
     private Quaternion targetRot; // 플레이어의 처음 각도
+
     public Button barkButton, pushButton, observeButton, sniffButton, upButton;
     public DetectCollision DetectColl;
 
@@ -42,39 +43,36 @@ public class PlayerScripts : MonoBehaviour
         }
         
     }
+
     void Onclick()
     {
         RaycastHit hit; // Difference Between RaycastHit and Ray?? 
         Ray camToScreen = mainCamera.ScreenPointToRay(Input.mousePosition);
+
         // 왼쪽 마우스 클릭을 감지하면      // Q, 이거랑 아래 hit.collider!=nulll 한번에 쓰면 안됨?? 
         if (Physics.Raycast(camToScreen, out hit, Mathf.Infinity)) // out??
         {
-            if (hit.collider != null) // 무언가를 치면
+            // 무언가를 치면
+            if (hit.collider != null)
             {
-                Interactable interactable = hit.collider.GetComponent<Interactable>(); // interactable : 부딪힌 오브젝트 or NPC 에 붙어있는 Interactable 컴포넌트
-                if (DetectColl.iscollision == true) // 플레이어가 오브젝트 가까이에 있으면
+
+                // interactable : 부딪힌 오브젝트 or NPC 에 붙어있는 Interactable 컴포넌트
+                Interactable interactable = hit.collider.GetComponent<Interactable>();
+
+                if (interactable != null) // 부딪힌 오브젝트에 interactable 컴포넌트가 붙어있으면
                 {
-                    if (interactable != null) // 부딪힌 오브젝트에 interactable 컴포넌트가 붙어있으면
-                    {
-                        MovePlayer(interactable.InteractPosition()); // NPC 의 위치로 플레이어를 이동시킴
-                        PlayerPosition = this.transform.position;
-                        barkButton.transform.gameObject.SetActive(true);
-                        pushButton.transform.gameObject.SetActive(true);
-                        observeButton.transform.gameObject.SetActive(true);
-                        sniffButton.transform.gameObject.SetActive(true);
-                        upButton.transform.gameObject.SetActive(true);
-                        //interactable.Interact(this); // this : PlayerScript 전달 ( argument ), 현재 PlayerScript 에 있으므로 this 로 전달 가능
-                        // 순서가 : PlayerScripts 에서 NPC 클릭 -> Interactable 스크립트 - Interact - actions -> messageAction 실행 - > DialogSystem - ShowMessages 실행 
-                    }
-                    else // 상호작용 가능한 오브젝트가 아니면 플레이어만 이동시킴. 
-                    {
-                        MovePlayer(hit.point); // hit.point : 이동 목적지
-                    }
+                    MovePlayer(interactable.InteractPosition()); // NPC 의 위치로 플레이어를 이동시킴
 
-                    //DetectColl.iscollision = false;
+                    interactable.Interact(this); // this : PlayerScript 전달 ( argument ), 현재 PlayerScript 에 있으므로 this 로 전달 가능
+                    //barkButton.transform.gameObject.SetActive(true);
+                    //pushButton.transform.gameObject.SetActive(true);
+                    //observeButton.transform.gameObject.SetActive(true);
+                    //sniffButton.transform.gameObject.SetActive(true);
+                    //upButton.transform.gameObject.SetActive(true);
+
+                    // 순서가 : PlayerScripts 에서 NPC 클릭 -> Interactable 스크립트 - Interact - actions -> messageAction 실행 - > DialogSystem - ShowMessages 실행 
                 }
-
-                else
+                else // 상호작용 가능한 오브젝트가 아니면 플레이어만 이동시킴. 
                 {
                     MovePlayer(hit.point); // hit.point : 이동 목적지
                 }
@@ -83,8 +81,7 @@ public class PlayerScripts : MonoBehaviour
 
     }
 
-
-    /*  
+    /*
     void Onclick()
     {
         RaycastHit hit; // Difference Between RaycastHit and Ray?? 
@@ -100,7 +97,7 @@ public class PlayerScripts : MonoBehaviour
                 // interactable : 부딪힌 오브젝트 or NPC 에 붙어있는 Interactable 컴포넌트
                 Interactable interactable = hit.collider.GetComponent<Interactable>();
 
-                //if (interactable != null) // 부딪힌 오브젝트에 interactable 컴포넌트가 붙어있으면
+                if (interactable != null) // 부딪힌 오브젝트에 interactable 컴포넌트가 붙어있으면
                 {
                     MovePlayer(interactable.InteractPosition()); // NPC 의 위치로 플레이어를 이동시킴
 
@@ -125,6 +122,7 @@ public class PlayerScripts : MonoBehaviour
 
     }
     */
+    
 
     /*  플레이어가 목적지에 도착하면 True 를 반환하는 메서드  */
     public bool CheckIfArrived()
