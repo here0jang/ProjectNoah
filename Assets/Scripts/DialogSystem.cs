@@ -19,6 +19,8 @@ public class DialogSystem : MonoBehaviour
     private List<string> currentMessages = new List<string>();
     private int msgID = 0;
 
+    private string DialogSmellText;
+
     private void Awake()
     {
         Instance = this;
@@ -124,9 +126,10 @@ public class DialogSystem : MonoBehaviour
         smellpanel.SetActive(false);
     }
 
-    public void Smell(string smell)
+    public void Smell()
     {
+        DialogSmellText = PlayerScripts.playerscripts.PlayerSmellText;
         smellpanel.SetActive(true);
-        smellText.text = smell;
+        smellText.text = DialogSmellText;
     }
 }

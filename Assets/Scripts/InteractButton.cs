@@ -6,117 +6,167 @@ using UnityEngine.UI;
 public class InteractButton : MonoBehaviour
 {
     public Animator PlayerAnim;
-    public Button barkButton, pushButton, observeButton, sniffButton, upButton;
-    public string smellText = "Smells like tin spirit";
+    public Button barkButton, pushButton, observeButton, sniffButton, destroyButton;
+    public GameObject biteButton;
 
     void Awake()
     {
         barkButton.onClick.AddListener(playerBark);
-        pushButton.onClick.AddListener(playerPush);
-        observeButton.onClick.AddListener(playerObserve);
         sniffButton.onClick.AddListener(playerSniff);
-        upButton.onClick.AddListener(playerUp);
+        observeButton.onClick.AddListener(playerObserve);
+
+        
+
+
+        pushButton.onClick.AddListener(playerPush);
+
+        //biteButton.onClick.AddListener(playerBite);
+
+        destroyButton.onClick.AddListener(playerDestroy);
+
     }
 
-    void playerBark()
+    void TurnOffInteractionButton()
     {
         barkButton.transform.gameObject.SetActive(false);
         pushButton.transform.gameObject.SetActive(false);
         observeButton.transform.gameObject.SetActive(false);
         sniffButton.transform.gameObject.SetActive(false);
-        upButton.transform.gameObject.SetActive(false);
-        Invoke("ChangeBarkTrue", 0.5f);
+        //biteButton.transform.gameObject.SetActive(false);
+        destroyButton.transform.gameObject.SetActive(false);
+    }
+    //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
-        Invoke("ChangeBarkFalse", 2);
+    void playerBite()
+    {
+        //TurnOffInteractionButton();
+        Invoke("ChangeBiteTrue", 0.5f);
+        Invoke("ChangeBiteFalse", 2);
+
+        //Invoke("ChangeBiteToDestroy", 2);
+
     }
 
-    void ChangeBarkFalse()
+    void ChangeBiteTrue()
     {
-        PlayerAnim.SetBool("IsBarking", false);
+        PlayerAnim.SetBool("IsBiting", true);
+    }
+
+    void ChangeBiteFalse()
+    {
+        PlayerAnim.SetBool("IsBiting", false);
+    }
+
+    void ChangeBiteToDestroy()
+    {
+        destroyButton.transform.gameObject.SetActive(true);
+    }
+
+    //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+    void playerBark()
+    {
+        TurnOffInteractionButton();
+        Invoke("ChangeBarkTrue", 0.5f);
+        Invoke("ChangeBarkFalse", 2);
     }
 
     void ChangeBarkTrue()
     {
         PlayerAnim.SetBool("IsBarking", true);
     }
-    /*
-    IEnumerator ChangeBarkFalse()
-    {
-        yield return new WaitForSeconds(2f);
-        PlayerAnim.SetBool("IsBarking", false);
 
-        barkButton.transform.gameObject.SetActive(false);
-        pushButton.transform.gameObject.SetActive(false);
-        observeButton.transform.gameObject.SetActive(false);
-        sniffButton.transform.gameObject.SetActive(false);
-        upButton.transform.gameObject.SetActive(false);
+    void ChangeBarkFalse()
+    {
+        PlayerAnim.SetBool("IsBarking", false);
     }
-    */
+    /* 오브젝트에 짖었을 때 그에 맞는 반응 필요 */
+
+    //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+    void playerSniff()
+    {
+        TurnOffInteractionButton();
+        Invoke("ChangeSniffTrue", 0.5f);
+        Invoke("ChangeSniffFalse", 2);
+        Invoke("TurnOnTheSmellPanel", 2);
+    }
+
+    void ChangeSniffTrue()
+    {
+        PlayerAnim.SetBool("IsSniffing", true);
+    }
+
+    void ChangeSniffFalse()
+    {
+        PlayerAnim.SetBool("IsSniffing", false);
+    }
+
+    void TurnOnTheSmellPanel()
+    {
+        DialogSystem.Instance.Smell();
+    }
+
+    //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+    void playerObserve()
+    {
+        TurnOffInteractionButton();
+        Invoke("ChangeObserveTrue", 0.5f);
+        Invoke("ChangeObserveFalse", 2);
+        Invoke("ChangeCameraView", 2);
+    }
+
+    void ChangeObserveTrue()
+    {
+        PlayerAnim.SetBool("IsObserving", true);
+    }
+
+    void ChangeObserveFalse()
+    {
+        PlayerAnim.SetBool("IsObserving", false);
+    }
+
+    void ChangeCameraView()
+    {
+        cam.newCam.ObserveButtonClick();
+    }
+
+    //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
     void playerPush()
     {
+        TurnOffInteractionButton();
+        Invoke("ChangePushTrue", 0.5f);
+        Invoke("ChangePushFalse", 2);
+    }
+
+    void ChangePushTrue()
+    {
         PlayerAnim.SetBool("IsPushing", true);
-        StartCoroutine("ChangePushFalse");
     }
 
-    IEnumerator ChangePushFalse()
+    void ChangePushFalse()
     {
-        yield return new WaitForSeconds(2f);
         PlayerAnim.SetBool("IsPushing", false);
-        barkButton.transform.gameObject.SetActive(false);
-        pushButton.transform.gameObject.SetActive(false);
-        observeButton.transform.gameObject.SetActive(false);
-        sniffButton.transform.gameObject.SetActive(false);
-        upButton.transform.gameObject.SetActive(false);
-    }
-    void playerObserve()
-    {
-        PlayerAnim.SetBool("IsObserving", true);
-        StartCoroutine("ChangeObserveFalse");
     }
 
-    IEnumerator ChangeObserveFalse()
+    //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+    void playerDestroy()
     {
-        yield return new WaitForSeconds(2f);
-        PlayerAnim.SetBool("IsObserving", false);
-        barkButton.transform.gameObject.SetActive(false);
-        pushButton.transform.gameObject.SetActive(false);
-        observeButton.transform.gameObject.SetActive(false);
-        sniffButton.transform.gameObject.SetActive(false);
-        upButton.transform.gameObject.SetActive(false);
-    }
-    void playerSniff()
-    {
-        PlayerAnim.SetBool("IsSniffing", true);
-        DialogSystem.Instance.Smell(smellText);
-        StartCoroutine("ChangeSniffFalse");
+        TurnOffInteractionButton();
+        Invoke("ChangeDestroyTrue", 0.5f);
+        Invoke("ChangeDestroyFalse", 2);
     }
 
-    IEnumerator ChangeSniffFalse()
+    void ChangeDestroyTrue()
     {
-        yield return new WaitForSeconds(2f);
-        PlayerAnim.SetBool("IsSniffing", false);
-        barkButton.transform.gameObject.SetActive(false);
-        pushButton.transform.gameObject.SetActive(false);
-        observeButton.transform.gameObject.SetActive(false);
-        sniffButton.transform.gameObject.SetActive(false);
-        upButton.transform.gameObject.SetActive(false);
-    }
-    void playerUp()
-    {
-        PlayerAnim.SetBool("IsUping", true);
-        StartCoroutine("ChangeUpFalse");
+        PlayerAnim.SetBool("IsDestroying", true);
     }
 
-    IEnumerator ChangeUpFalse()
+    void ChangeDestroyFalse()
     {
-        yield return new WaitForSeconds(2f);
-        PlayerAnim.SetBool("IsUping", false);
-        barkButton.transform.gameObject.SetActive(false);
-        pushButton.transform.gameObject.SetActive(false);
-        observeButton.transform.gameObject.SetActive(false);
-        sniffButton.transform.gameObject.SetActive(false);
-        upButton.transform.gameObject.SetActive(false);
+        PlayerAnim.SetBool("IsDestroying", false);
     }
-
 }

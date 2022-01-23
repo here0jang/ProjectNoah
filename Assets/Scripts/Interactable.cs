@@ -8,7 +8,8 @@ public class Interactable : MonoBehaviour
     [SerializeField] float distancePosition = 1f; // NPC 와의 약간의 distance
     [SerializeField] Actions[] actionss; // NPC 와의 첫 번째 상호작용
 
-    public Button barkButton, pushButton, observeButton, sniffButton, upButton;
+    public Button barkButton, pushButton, observeButton, sniffButton;
+    public GameObject biteButton;
 
     /* NPC 의 위치를 반환하는 메서드 */
     public Vector3 InteractPosition()
@@ -40,11 +41,7 @@ public class Interactable : MonoBehaviour
         pushButton.transform.gameObject.SetActive(true);
         observeButton.transform.gameObject.SetActive(true);
         sniffButton.transform.gameObject.SetActive(true);
-        upButton.transform.gameObject.SetActive(true);
-
-
-
-
+        biteButton.transform.gameObject.SetActive(true);
 
         /*
         // 3) NPC 와 상호작용함

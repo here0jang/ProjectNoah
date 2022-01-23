@@ -1,31 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+
 public class cam : MonoBehaviour
 {
+    public static cam newCam { get; private set; }
+    
     public Camera mainCamera;
-    public Button ObserveButton, BarkButton, PushButton, SniffButton, UpButton;
-    public Transform[] views;
+
+    public Transform Mainview;
+
+    private Transform camObserveView;
     // public float transitionSpeed;
     // public Transform currentVieww;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
+        newCam = this;
     }
 
     public void ObserveButtonClick()
     {
-        changeView(views[0]);
-
-        ObserveButton.transform.gameObject.SetActive(false);
-        BarkButton.transform.gameObject.SetActive(false);
-        PushButton.transform.gameObject.SetActive(false);
-        SniffButton.transform.gameObject.SetActive(false);
-        UpButton.transform.gameObject.SetActive(false);
-
+        camObserveView = PlayerScripts.playerscripts.PlayerobserveView;
+        changeView(camObserveView);
     }
 
     void Update()
@@ -48,6 +45,11 @@ public class cam : MonoBehaviour
             changeView(views[1]);
         }    
         */
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            changeView(Mainview);
+        }
     }
     
     /* 전환 효과 없는 카메라 전환 메서드 */
