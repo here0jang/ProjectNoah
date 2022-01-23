@@ -32,7 +32,7 @@ public class InteractButton : MonoBehaviour
         pushButton.transform.gameObject.SetActive(false);
         observeButton.transform.gameObject.SetActive(false);
         sniffButton.transform.gameObject.SetActive(false);
-        //biteButton.transform.gameObject.SetActive(false);
+        biteButton.transform.gameObject.SetActive(false);
         destroyButton.transform.gameObject.SetActive(false);
     }
     //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
