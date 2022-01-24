@@ -16,7 +16,7 @@ public class PlayerScripts : MonoBehaviour
     private Vector3 PlayerPosition, NPCPosition = new Vector3();
     private float DistanceBetweenPlayerandNPC = 25f; /* 플레이어와 NPC 사이의 거리가 얼마나 가까우면 상호작용 버튼 나타나게 할지 */
 
-    public Button barkButton, pushButton, observeButton, sniffButton, destroyButton;
+    public Button barkButton, pushButton, observeButton, sniffButton;
     public GameObject biteButton;
     public Sprite BiteButtonimage;
     private PlayerAnimation playerAnim = new PlayerAnimation();
@@ -157,7 +157,6 @@ public class PlayerScripts : MonoBehaviour
         observeButton.transform.gameObject.SetActive(false);
         sniffButton.transform.gameObject.SetActive(false);
         biteButton.transform.gameObject.SetActive(false);
-        destroyButton.transform.gameObject.SetActive(false);
     }
 
     /* 플레이어가 NPC 를 바라보도록 각도를 바꿔주는 메서드 */

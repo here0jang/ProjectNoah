@@ -22,7 +22,7 @@ public class InteractButton : MonoBehaviour
 
         //biteButton.onClick.AddListener(playerBite);
 
-        destroyButton.onClick.AddListener(playerDestroy);
+        //destroyButton.onClick.AddListener(playerDestroy);
 
     }
 

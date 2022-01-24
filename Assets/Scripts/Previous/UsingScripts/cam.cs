@@ -13,6 +13,7 @@ public class cam : MonoBehaviour
     private Transform camObserveView;
     // public float transitionSpeed;
     // public Transform currentVieww;
+    [SerializeField] GameObject noah;
 
     private void Awake()
     {
@@ -49,6 +50,7 @@ public class cam : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             changeView(Mainview);
+            noah.transform.gameObject.SetActive(true);
         }
     }
     
