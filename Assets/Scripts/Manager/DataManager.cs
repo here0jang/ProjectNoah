@@ -10,6 +10,7 @@ public class DataManager : MonoBehaviour
 
     [SerializeField] Inventory inventory;
 
+    public string PrevSceneName { get; private set; }
     /* 싱글톤 구현 */
     // 데이터 매니저 자신과, 이 클래스를 가지고 있는 오브젝트들 
     private void Awake() // 다른 스크립트들이 실행되기 전에 초기화
@@ -25,5 +26,11 @@ public class DataManager : MonoBehaviour
             Destroy(gameObject); 
 
         }
+    }
+
+    /* 이전 씬이 바뀔때마다 업데이트 해주는 메서드 */
+    public void SetPrevScene(string name)
+    {
+        PrevSceneName = name; // 다음 씬으로 이동시 플레이어 생성 위치에 사용할 예정
     }
 }

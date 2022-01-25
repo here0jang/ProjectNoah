@@ -21,6 +21,8 @@ public class longButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public Animator PlayerAnim;
     public Button barkButton, pushButton, observeButton, sniffButton, biteButton;
 
+    public GameManager gameManager;
+
     [SerializeField] GameObject Noah;
 
     void Awake()
@@ -117,6 +119,7 @@ public class longButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         TurnOffInteractionButton();
         Invoke("ChangeBarkTrue", 0.5f);
         Invoke("ChangeBarkFalse", 2);
+        gameManager.PlayerHealth -= 10;
     }
 
     void ChangeBarkTrue()
