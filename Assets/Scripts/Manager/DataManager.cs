@@ -6,11 +6,18 @@ public class DataManager : MonoBehaviour
 {
     public static DataManager Instance { get; private set; }
     // 다른 스크립트들이 Inventory 의 값은 가져올 수 있지만, 값을 변경할 수 없음
-    public Inventory Inventory { get { return Inventory; } }
+    public Inventory Inventory { get { return inventory; } }
 
     [SerializeField] Inventory inventory;
 
+    //public event System.Action OnSave = delegate { };
+    //public event System.Action OnLoad = delegate { };
+
     public string PrevSceneName { get; private set; }
+    public LevelManager LevelManager { get; private set; }
+
+    //private int saveDataId = 0;
+    //private List<SaveData> saveDatas = new List<SaveData>();
     /* 싱글톤 구현 */
     // 데이터 매니저 자신과, 이 클래스를 가지고 있는 오브젝트들 
     private void Awake() // 다른 스크립트들이 실행되기 전에 초기화
@@ -26,6 +33,8 @@ public class DataManager : MonoBehaviour
             Destroy(gameObject); 
 
         }
+
+        LevelManager = GetComponentInChildren<LevelManager>();
     }
 
     /* 이전 씬이 바뀔때마다 업데이트 해주는 메서드 */

@@ -22,4 +22,11 @@ public static class Extensions
         return newItem;
     }
 
+    public static void RunActions(Actions[] actions)
+    {
+        for (int i = 0; i < actions.Length; i++)
+        {
+            actions[i].Act();
+        }
+    }
 }

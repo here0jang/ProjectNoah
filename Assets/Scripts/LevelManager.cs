@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    // canvas 컴포넌트 - sort order 를 1로 해주기(UI 앞에서 랜더링 되도록)
-    public static LevelManager Instance { get; private set; }
     
+    // canvas 컴포넌트 - sort order 를 1로 해주기(UI 앞에서 랜더링 되도록
+
     [SerializeField] GameObject panel; // 로딩 패널
     [SerializeField] RectTransform loadBar; 
 
@@ -15,7 +15,6 @@ public class LevelManager : MonoBehaviour
     private void Awake()
     {
         // 싱글턴 패턴을 만들지 않을 것임 (데이터 매니저의 자식이므로 다른 씬에서도 유지돰 )
-        Instance = this;
         HidePanel();
     }
 

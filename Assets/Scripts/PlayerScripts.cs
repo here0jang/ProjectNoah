@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerScripts : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class PlayerScripts : MonoBehaviour
     private string smelltext;
     private Transform observeview;
 
+    public string transferMapName;
+
     private void Awake()
     {
         playerscripts = this;
@@ -34,7 +37,7 @@ public class PlayerScripts : MonoBehaviour
         mainCamera = Camera.main; // Scene 에서 MainCamera 라고 Tag 가 첫번째로 활성화된 카메라를 나타냄
         agent = GetComponent<NavMeshAgent>();
         // Player 에 없으므로 
-        playerAnim.Init(GetComponentInChildren<Animator>()); // Animator 를 playerAnim 에 전달
+        playerAnim.Init(GetComponentInChildren<Animator>()); // Player 의 자식인 noah_FBX 에 붙어있는 컴포넌트인 animator 초기화
     }
 
     // Update is called once per frame
@@ -51,12 +54,12 @@ public class PlayerScripts : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, 15f * Time.deltaTime); // a 각도와 b 각도 사이를 보간해줌
         }
         // NavMeshAgent 의 Velocity 전달, vector --> magnitude
-        playerAnim.UpdateAnimation(agent.velocity.sqrMagnitude);     
+        playerAnim.UpdateAnimation(agent.velocity.sqrMagnitude); // 두 점간의 거리     
     }
 
     void Onclick()
     {
-        RaycastHit hit; // Difference Between RaycastHit and Ray?? 
+        RaycastHit hit; //  충돌이 일어나면 코드 실행, 
         Ray camToScreen = mainCamera.ScreenPointToRay(Input.mousePosition);
         // 왼쪽 마우스 클릭을 감지하면      // Q, 이거랑 아래 hit.collider!=nulll 한번에 쓰면 안됨?? 
         if (Physics.Raycast(camToScreen, out hit, Mathf.Infinity)) // out??
@@ -76,7 +79,6 @@ public class PlayerScripts : MonoBehaviour
 
                 if (interactable != null) // 부딪힌 오브젝트에 interactable 컴포넌트가 붙어있으면
                 {
-
                     NPCPosition = interactable.transform.position;
                     Vector3 offset = PlayerPosition - NPCPosition;
                     float sqrLen = offset.sqrMagnitude; // 플레이어의 이동 전 현재 위치와 오브젝트 사이의 거리
@@ -90,6 +92,10 @@ public class PlayerScripts : MonoBehaviour
                 else // 상호작용 가능한 오브젝트가 아니면 플레이어만 이동시킴. 
                 {
                     MovePlayer(hit.point); // hit.point : 이동 목적지
+                    if (hit.collider.name == "Door")
+                    {
+                        Invoke("ChangePlayerScene", 2f);
+                    }
                 }
             }
         }
@@ -142,21 +148,22 @@ public class PlayerScripts : MonoBehaviour
     public bool CheckIfArrived()
     {
         // NavMeshAgent.pathPending : 계산 중이지만 아직 준비가 되지 않은 경로 -> false 면 계산 완료되었다는 뜻
-        // 경로가 계산완료됨 && 목적지로 가고 있음 -> 참 반환
-        return (!agent.pathPending&&agent.remainingDistance<=agent.stoppingDistance);
+        // 경로가 계산완료됨 && 남은거리보다 감속거리가 더 큼 -> 참 반환
+        return (!agent.pathPending && agent.remainingDistance<=agent.stoppingDistance);
     }
 
     void MovePlayer(Vector3 targetPosition)
     {
         turning = false; // 움직일때마다 turning 을 거짓으로 만듬
         agent.SetDestination(targetPosition);
+
         DialogSystem.Instance.HideDialog(); // 대화 도중에 움직이면 대화창을 끔
         biteButton.GetComponent<Image>().sprite = BiteButtonimage;
+        biteButton.transform.gameObject.SetActive(false);
         barkButton.transform.gameObject.SetActive(false);
         pushButton.transform.gameObject.SetActive(false);
         observeButton.transform.gameObject.SetActive(false);
         sniffButton.transform.gameObject.SetActive(false);
-        biteButton.transform.gameObject.SetActive(false);
     }
 
     /* 플레이어가 NPC 를 바라보도록 각도를 바꿔주는 메서드 */
@@ -164,6 +171,11 @@ public class PlayerScripts : MonoBehaviour
     {
         turning = true;
         targetRot = Quaternion.LookRotation(targetDirection - transform.position);
+    }
+
+    void ChangePlayerScene()
+    {
+        SceneManager.LoadScene(transferMapName);
     }
 }
 

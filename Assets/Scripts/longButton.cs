@@ -21,9 +21,9 @@ public class longButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public Animator PlayerAnim;
     public Button barkButton, pushButton, observeButton, sniffButton, biteButton;
 
-    public GameManager gameManager;
-
     [SerializeField] GameObject Noah;
+
+    public bool IsBark = false;
 
     void Awake()
     {    
@@ -116,10 +116,10 @@ public class longButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     void playerBark()
     {
+        PlayerManager.playermanager.isBark = true;
         TurnOffInteractionButton();
         Invoke("ChangeBarkTrue", 0.5f);
         Invoke("ChangeBarkFalse", 2);
-        gameManager.PlayerHealth -= 10;
     }
 
     void ChangeBarkTrue()
@@ -132,6 +132,8 @@ public class longButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         PlayerAnim.SetBool("IsBarking", false);
     }
     /* 오브젝트에 짖었을 때 그에 맞는 반응 필요 */
+
+
 
     //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 

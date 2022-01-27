@@ -5,7 +5,6 @@ using UnityEngine;
 public class MessageAction : Actions
 {
     [Multiline(5)]
-
     [SerializeField] List<string> messages; // 대화 리스트
     [SerializeField] bool enableDialog; // 대화 마지막에 다음 선택지가 있으면 참
     [SerializeField] List<Actions> yesActions, noActions; // 각 버튼을 눌렀을 때의 리액션 리스트, Message Action 스크립트 하나 자체가 Actions 가 됨

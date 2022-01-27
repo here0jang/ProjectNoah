@@ -13,8 +13,9 @@ public class AnimateActions : Actions
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponentInChildren<Animator>();
         // 프로그램이 실행되면 triggerName을 int 형태의 해시로 바꿈
-        for(int i = 0; i<anims.Count; i++)
+        for (int i = 0; i<anims.Count; i++)
         {
             anims[i].InitHashID();
         }
@@ -38,7 +39,9 @@ public class AnimateActions : Actions
 
             i++;
 
-            yield return null;
+
+            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(animator.GetNextAnimatorStateInfo(0).length);
         }
 
         for(int j = 0; j < actions.Count; j++)
