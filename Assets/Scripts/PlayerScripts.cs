@@ -94,6 +94,7 @@ public class PlayerScripts : MonoBehaviour
                     MovePlayer(hit.point); // hit.point : 이동 목적지
                     if (hit.collider.name == "Door")
                     {
+                     
                         Invoke("ChangePlayerScene", 2f);
                     }
                 }
@@ -176,6 +177,16 @@ public class PlayerScripts : MonoBehaviour
     void ChangePlayerScene()
     {
         SceneManager.LoadScene(transferMapName);
+    }
+
+    void ChangePosition()
+    {
+
+        if (SceneManager.GetActiveScene().name == "Work")
+        {
+            //this.transform.Translate(new Vector3(0, 0, 0));
+            Debug.Log("Working now");
+        }
     }
 }
 
