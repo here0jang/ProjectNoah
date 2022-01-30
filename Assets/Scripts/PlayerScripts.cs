@@ -27,6 +27,8 @@ public class PlayerScripts : MonoBehaviour
 
     public string transferMapName;
 
+    public NInventory ninventory;
+
     private void Awake()
     {
         playerscripts = this;
@@ -93,15 +95,23 @@ public class PlayerScripts : MonoBehaviour
                 {
                     MovePlayer(hit.point); // hit.point : 이동 목적지
                     if (hit.collider.name == "Door")
-                    {
-                     
+                    {    
                         Invoke("ChangePlayerScene", 2f);
+                    }
+
+                    else if(hit.collider.name == "NPipe")
+                    {
+                        IInventoryItem item = hit.collider.GetComponent<IInventoryItem>();
+                        if (item != null) // 부딪힌 오브젝트에 IInventoryItem 컴포넌트가 붙어있으면
+                        {
+                            ninventory.AddItem(item);
+                        }
                     }
                 }
             }
         }
-
     }
+
     public string PlayerSmellText { get { return smelltext; } }
     public Transform PlayerobserveView { get { return observeview; } }
     /*
@@ -158,7 +168,7 @@ public class PlayerScripts : MonoBehaviour
         turning = false; // 움직일때마다 turning 을 거짓으로 만듬
         agent.SetDestination(targetPosition);
 
-        DialogSystem.Instance.HideDialog(); // 대화 도중에 움직이면 대화창을 끔
+        //DialogSystem.Instance.HideDialog(); // 대화 도중에 움직이면 대화창을 끔
         biteButton.GetComponent<Image>().sprite = BiteButtonimage;
         biteButton.transform.gameObject.SetActive(false);
         barkButton.transform.gameObject.SetActive(false);
@@ -188,6 +198,31 @@ public class PlayerScripts : MonoBehaviour
             Debug.Log("Working now");
         }
     }
+
+    //private void OnControllerColliderHit(ControllerColliderHit hit)
+    //{
+        
+    //    IInventoryItem item = hit.collider.GetComponent<IInventoryItem>();
+    //    if(item!=null) // 부딪힌 오브젝트에 IInventoryItem 컴포넌트가 붙어있으면
+    //    { 
+
+    //        ninventory.AddItem(item);
+    //    }
+    //}
+
+    //void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.CompareTag("Movable Item"))
+    //    {
+    //        IInventoryItem item = other.gameObject.GetComponent<IInventoryItem>();
+    //        if (item != null) // 부딪힌 오브젝트에 IInventoryItem 컴포넌트가 붙어있으면
+    //        {
+    //            ninventory.AddItem(item);
+    //        }
+
+    //    }
+    //}
+
 }
 
 

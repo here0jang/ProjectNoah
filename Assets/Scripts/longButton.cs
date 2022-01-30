@@ -100,6 +100,8 @@ public class longButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         TurnOffInteractionButton();
         Invoke("ChangeBiteTrue", 0.5f);
         Invoke("ChangeBiteFalse", 2);
+        Invoke("isBitingTrue", 1.1f);
+
     }
 
     void ChangeBiteTrue()
@@ -110,6 +112,11 @@ public class longButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     void ChangeBiteFalse()
     {
         PlayerAnim.SetBool("IsBiting", false);
+    }
+
+    void isBitingTrue()
+    {
+        PickUp.pickup.isBiting = true;
     }
 
     //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&

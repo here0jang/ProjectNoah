@@ -72,6 +72,7 @@ GameObject:
   - component: {fileID: 6271890255095929716}
   - component: {fileID: 6271890255095929717}
   - component: {fileID: 168147663}
+  - component: {fileID: 1813251548}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -139,6 +140,7 @@ MonoBehaviour:
   biteButton: {fileID: 0}
   BiteButtonimage: {fileID: 21300000, guid: c212ba182c3ccb64689615b28937123a, type: 3}
   transferMapName: Work
+  ninventory: {fileID: 0}
 --- !u!114 &168147663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,6 +153,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b98bf16e2c2e85469c548f4fde08cf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &1813251548
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6271890255095929718}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.144184, z: 2.2518418}
+  m_Center: {x: 0, y: 0.57209206, z: -0.28838122}
 --- !u!1 &6271890255419799543
 GameObject:
   m_ObjectHideFlags: 0

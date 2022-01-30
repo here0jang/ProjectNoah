@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Puzzle
   - BiteButton1
+  - Movable Item
   layers:
   - Default
   - TransparentFX
