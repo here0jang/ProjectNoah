@@ -37,6 +37,8 @@ public class Interactable : MonoBehaviour
 
         // 2) 플레이어가 npc 위치로 도착하면 npc를 바라보게 각도를 바꿈 
         player.SetDirection(transform.position);
+        //PlayerScripts.playerscripts.PlayerInteractionButtonPosition;
+        //InteractionButtons.rectTransform.anchoredPosition = new Vector3(InteractPosition().x, InteractPosition().y, 0);
         barkButton.transform.gameObject.SetActive(true);
         pushButton.transform.gameObject.SetActive(true);
         observeButton.transform.gameObject.SetActive(true);

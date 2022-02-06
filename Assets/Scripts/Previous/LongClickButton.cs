@@ -1,3 +1,4 @@
+/*
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class LongClickButton : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 	[SerializeField] float requiredHoldTime = 1f;
 
 	public UnityEvent onLongClick;
+
 
 	public void OnPointerDown(PointerEventData eventData)
 	{
@@ -48,7 +50,7 @@ public class LongClickButton : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 	}
 }
 
-
+*/
 //public Button biteButton, destroyButton;
 ////버튼이 클릭된 상태 && 누른지 2초이상이면
 //public void OnLongClick()

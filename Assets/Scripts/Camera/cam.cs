@@ -8,8 +8,6 @@ public class cam : MonoBehaviour
     
     public Camera mainCamera;
 
-    public Transform Mainview;
-
     private Transform camObserveView;
     // public float transitionSpeed;
     // public Transform currentVieww;
@@ -17,12 +15,13 @@ public class cam : MonoBehaviour
 
     private void Awake()
     {
-        newCam = this;
+        newCam = this;     
     }
 
     public void ObserveButtonClick()
     {
         camObserveView = PlayerScripts.playerscripts.PlayerobserveView;
+        gameObject.GetComponent<SceneCameraControl>().enabled = false;
         changeView(camObserveView);
     }
 
@@ -47,9 +46,11 @@ public class cam : MonoBehaviour
         }    
         */
 
+
         if (Input.GetMouseButtonDown(1))
         {
-            changeView(Mainview);
+            gameObject.GetComponent<SceneCameraControl>().enabled = true;
+            //changeView(MainView);
             noah.transform.gameObject.SetActive(true);
         }
     }
@@ -75,6 +76,4 @@ public class cam : MonoBehaviour
 
         transform.eulerAngles = currentAngle;
     } */
-
-
 }

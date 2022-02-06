@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class longButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
 {
+    public static longButton longbutton { get; private set; }
     [SerializeField] float requiredHoldTime = 1f;
     [SerializeField] float requiredChangeTime = 0.5f;
     float pointerDownTimer = 0;
@@ -25,8 +26,13 @@ public class longButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public bool IsBark = false;
 
+    private GameObject biteObject;
+
+    private GameObject noahbiteObject;
+
     void Awake()
-    {    
+    {
+        longbutton = this;
         barkButton.onClick.AddListener(playerBark);
         sniffButton.onClick.AddListener(playerSniff);
         observeButton.onClick.AddListener(playerObserve);
@@ -97,10 +103,20 @@ public class longButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     void playerBite()
     {
+        
         TurnOffInteractionButton();
         Invoke("ChangeBiteTrue", 0.5f);
+        
+        noahbiteObject = PlayerScripts.playerscripts.PlayerNoahBiteObject;
+        biteObject = PlayerScripts.playerscripts.PlayerbiteObject;
+        Invoke("BiteObject", 0.7f);
+        Invoke("TurnOffEnvirObject", 1.1f);
+
+
         Invoke("ChangeBiteFalse", 2);
     }
+
+    public GameObject LongButtonNoahBiteObject { get { return noahbiteObject; } }
 
     void ChangeBiteTrue()
     {
@@ -110,6 +126,16 @@ public class longButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     void ChangeBiteFalse()
     {
         PlayerAnim.SetBool("IsBiting", false);
+    }
+
+    void BiteObject()
+    {
+        noahbiteObject.transform.gameObject.SetActive(true);
+    }
+
+    void TurnOffEnvirObject()
+    {
+        biteObject.transform.gameObject.SetActive(false);
     }
 
     //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
@@ -227,4 +253,5 @@ public class longButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         PlayerAnim.SetBool("IsDestroying", false);
     }
+
 }

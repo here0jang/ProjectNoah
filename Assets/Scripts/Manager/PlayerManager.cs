@@ -5,8 +5,12 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager playermanager { get; private set; }
+
     public static int Hp = 100;
     public bool isBark = false;
+
+
+
     private void Awake()
     {
         playermanager = this;
@@ -14,7 +18,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        if(isBark==true) // Â¢À¸¸é
+        if(isBark == true) // Â¢À¸¸é
         {
             Hp -= 10;
             isBark = false;
