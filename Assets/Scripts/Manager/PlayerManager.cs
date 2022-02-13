@@ -9,7 +9,11 @@ public class PlayerManager : MonoBehaviour
     public static int Hp = 100;
     public bool isBark = false;
 
+    public static GameObject currentObject;
+    public static bool isPushing = false;
+    public bool isPush = false;
 
+    public GameObject noahThePlayer;
 
     private void Awake()
     {
@@ -24,11 +28,20 @@ public class PlayerManager : MonoBehaviour
             isBark = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
+
+        //if (Input.GetKeyDown(KeyCode.Q))
+        //{
+        //    Debug.Log("체력: " + Hp);
+        //    Debug.Log(isPushing);
+        //    //Debug.Log(currentObject);
+        //}
+
+        isPushing = isPush;
+
+        if(isPushing == true)
         {
-            Debug.Log("체력: " + Hp);
+            currentObject = PlayerScripts.playerscripts.CurrentObject;
+            currentObject.transform.parent = noahThePlayer.transform;
         }
     }
-
-
 }

@@ -28,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 89590528940888790}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 13.799999, y: 48.7, z: -1.3499997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -176,5 +176,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 89590528940888786}
-  Mainview: {fileID: 0}
+  MainView: {fileID: 0}
   noah: {fileID: 0}

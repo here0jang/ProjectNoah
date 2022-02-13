@@ -9,6 +9,7 @@ public class cam : MonoBehaviour
     public Camera mainCamera;
 
     private Transform camObserveView;
+    public Transform MainView;
     // public float transitionSpeed;
     // public Transform currentVieww;
     [SerializeField] GameObject noah;
@@ -21,8 +22,14 @@ public class cam : MonoBehaviour
     public void ObserveButtonClick()
     {
         camObserveView = PlayerScripts.playerscripts.PlayerobserveView;
-        gameObject.GetComponent<SceneCameraControl>().enabled = false;
+        //gameObject.GetComponent<SceneCameraControl>().enabled = false;
         changeView(camObserveView);
+    }
+
+    public void CancelObserve()
+    {
+        changeView(MainView);
+        noah.transform.gameObject.SetActive(true);
     }
 
     void Update()
@@ -47,12 +54,11 @@ public class cam : MonoBehaviour
         */
 
 
-        if (Input.GetMouseButtonDown(1))
-        {
-            gameObject.GetComponent<SceneCameraControl>().enabled = true;
-            //changeView(MainView);
-            noah.transform.gameObject.SetActive(true);
-        }
+        //if (Input.GetMouseButtonDown(1))
+        //{
+        //    //gameObject.GetComponent<SceneCameraControl>().enabled = true;
+
+        //}
     }
     
     /* 전환 효과 없는 카메라 전환 메서드 */

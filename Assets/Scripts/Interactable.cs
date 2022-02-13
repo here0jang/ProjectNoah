@@ -5,10 +5,14 @@ using UnityEngine.UI;
 // NPC 에게 붙는 스크립트
 public class Interactable : MonoBehaviour
 {
-    [SerializeField] float distancePosition = 1f; // NPC 와의 약간의 distance
+    [SerializeField] float distancePosition = 100f; // NPC 와의 약간의 distance
     [SerializeField] Actions[] actionss; // NPC 와의 첫 번째 상호작용
 
-    public Button barkButton, pushButton, observeButton, sniffButton;
+    public Button barkButton, pushButton, sniffButton;
+    //public Button observeButton;
+
+    private Button CurrentCenterButton;
+
     public GameObject biteButton;
 
     /* NPC 의 위치를 반환하는 메서드 */
@@ -41,9 +45,11 @@ public class Interactable : MonoBehaviour
         //InteractionButtons.rectTransform.anchoredPosition = new Vector3(InteractPosition().x, InteractPosition().y, 0);
         barkButton.transform.gameObject.SetActive(true);
         pushButton.transform.gameObject.SetActive(true);
-        observeButton.transform.gameObject.SetActive(true);
         sniffButton.transform.gameObject.SetActive(true);
         biteButton.transform.gameObject.SetActive(true);
+        CurrentCenterButton = PlayerScripts.playerscripts.ObjectCenterButton;
+        CurrentCenterButton.transform.gameObject.SetActive(true);
+        //observeButton.transform.gameObject.SetActive(true);
 
         // 3) NPC 와 상호작용함
         //for (int i=0; i < actionss.Length; i++)

@@ -8,15 +8,17 @@ public enum CheckMethod
 }
 public class ScenePartLoader : MonoBehaviour
 {
+    //public GameObject NOAH;
+    //public Camera cockpitCamera;
 
     public Transform player;
 
-    public GameObject NOAH;
     public CheckMethod checkMethod;
     public float loadRange;
 
     //Scene state
     private bool isLoaded; // let us to avoid loading the scene twice
+
     private bool shouldLoad; // used for trigger method
     void Start()
     {
@@ -29,9 +31,12 @@ public class ScenePartLoader : MonoBehaviour
                 if (scene.name == gameObject.name) // 프리팹과 씬 이름을 같게 한 이유
                 {
                     isLoaded = true;
+                    Debug.Log("isLoaded : " + isLoaded);
                 }
+
             }
         }
+        
     }
 
     void Update()
@@ -39,7 +44,7 @@ public class ScenePartLoader : MonoBehaviour
         //Checking which method to use
         if (checkMethod == CheckMethod.Distance)
         {
-            DistanceCheck();
+            //DistanceCheck();
         }
         else if (checkMethod == CheckMethod.Trigger)
         {
@@ -47,41 +52,20 @@ public class ScenePartLoader : MonoBehaviour
         }
     }
 
-    void DistanceCheck()
-    {
-        //Checking if the player is within the range
-        if (Vector3.Distance(player.position, transform.position) < loadRange)
-        {
-            LoadScene();
-        }
-        else
-        {
-            UnLoadScene(); // 플레이어가 일정 범위를 벗어나면 씬 삭제
-        }
-    }
+    //void DistanceCheck()
+    //{
+    //    //Checking if the player is within the range
+    //    if (Vector3.Distance(player.position, transform.position) < loadRange)
+    //    {
+    //        LoadScene();
+    //    }
+    //    else
+    //    {
+    //        UnLoadScene(); // 플레이어가 일정 범위를 벗어나면 씬 삭제
+    //    }
+    //}
 
-    void LoadScene()
-    {
-        if (!isLoaded)
-        {
-            //Loading the scene, using the gameobject name as it's the same as the name of the scene to load
-            SceneManager.LoadSceneAsync(gameObject.name, LoadSceneMode.Additive);
-            //SceneManager.MoveGameObjectToScene(NOAH, SceneManager.GetSceneByName(gameObject.name));
-            //We set it to true to avoid loading the scene twice
-            isLoaded = true;
-        }
-    }
-
-    void UnLoadScene() 
-    {
-        if (isLoaded)
-        {
-            SceneManager.UnloadSceneAsync(gameObject.name);
-            isLoaded = false;
-        }
-    }
-
-//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -111,6 +95,27 @@ public class ScenePartLoader : MonoBehaviour
         }
     }
 
+    void LoadScene()
+    {
+        if (!isLoaded)
+        {
+            //Loading the scene, using the gameobject name as it's the same as the name of the scene to load
+            SceneManager.LoadSceneAsync(gameObject.name, LoadSceneMode.Additive);
+            //Scene newlyLoadedScene = SceneManager.GetSceneAt(SceneManager.sceneCount - 1);
+            //SceneManager.SetActiveScene(newlyLoadedScene);
 
+            //SceneManager.MoveGameObjectToScene(NOAH, SceneManager.GetSceneByName(gameObject.name));
+            //We set it to true to avoid loading the scene twice
+            isLoaded = true;
+        }
+    }
 
+    void UnLoadScene() 
+    {
+        if (isLoaded)
+        {
+            SceneManager.UnloadSceneAsync(gameObject.name);
+            isLoaded = false;
+        }
+    }
 }

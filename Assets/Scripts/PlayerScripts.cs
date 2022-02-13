@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerScripts : MonoBehaviour
 {
+    public InventoryObject inventory;
     public static PlayerScripts playerscripts { get; private set; }
     private NavMeshAgent agent;
 
@@ -18,19 +19,23 @@ public class PlayerScripts : MonoBehaviour
     private Vector3 PlayerPosition, NPCPosition = new Vector3();
     private float DistanceBetweenPlayerandNPC = 25f; /* 플레이어와 NPC 사이의 거리가 얼마나 가까우면 상호작용 버튼 나타나게 할지 */
 
-    //public Image InteractionButtons;
-    public Button barkButton, pushButton, observeButton, sniffButton;
+    public Button barkButton, pushButton, observeButton, sniffButton, centerDisableButton;
     public GameObject biteButton;
     public Sprite BiteButtonimage;
     private PlayerAnimation playerAnim = new PlayerAnimation();
 
     private string smelltext;
+    private Button centerbutton;
     private Transform observeview;
-    private GameObject biteobject;
     private GameObject noahbiteobject;
+    private GameObject noahpushobject;
+    private Vector3 interactionbuttonposition;
 
     public GameObject InteractionButtons;
-    private Vector3 interactionbuttonposition;
+
+
+    public GameObject CurrentObject;
+
 
 
     public string transferMapName;
@@ -50,8 +55,7 @@ public class PlayerScripts : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    { 
-        
+    {      
         // 왼쪽 마우스 클릭 && 마우스가 UI 위에 있지 않음
         if(Input.GetMouseButtonDown(0)&&!Extensions.IsMouseOverUI())
         {
@@ -78,92 +82,64 @@ public class PlayerScripts : MonoBehaviour
         {
             if (hit.collider != null) // 무언가를 치면
             {
+
                 PlayerPosition = this.gameObject.transform.position;
-                
+                noahpushobject = hit.collider.gameObject;
                 Interactable interactable = hit.collider.GetComponent<Interactable>(); // interactable : 부딪힌 오브젝트 or NPC 에 붙어있는 Interactable 컴포넌트         
                 ObjData objData = hit.collider.GetComponent<ObjData>();
 
                 if (objData != null)
                 {
                     smelltext = objData.SmellText;
+                    centerbutton = objData.CenterButton;
                     observeview = objData.ObserveView;
-                    biteobject = objData.BiteObject;
+
                     noahbiteobject = objData.PlayerBiteObject;
+                    noahpushobject = objData.PlayerPushObject;
                     interactionbuttonposition = objData.InteractionButtonPosition;
                     InteractionButtons.gameObject.transform.position = interactionbuttonposition;
                 }
 
                 if (interactable != null) // 부딪힌 오브젝트에 interactable 컴포넌트가 붙어있으면
                 {
+                    CurrentObject = hit.collider.gameObject;
                     NPCPosition = interactable.transform.position;
                     Vector3 offset = PlayerPosition - NPCPosition;
                     float sqrLen = offset.sqrMagnitude; // 플레이어의 이동 전 현재 위치와 오브젝트 사이의 거리
 
+
                     MovePlayer(interactable.InteractPosition()); // NPC 의 위치로 플레이어를 이동시킴
-                    Vector3 buttonPosition = interactable.InteractPosition();
+
                     if (sqrLen < DistanceBetweenPlayerandNPC)
                     {
                         //InteractionButtons.transform.position = new Vector3(buttonPosition.x, buttonPosition.y, 0);
                         interactable.Interact(this); // this : PlayerScript 전달 ( argument ), 현재 PlayerScript 에 있으므로 this 로 전달 가능
                     } // 순서가 : PlayerScripts 에서 NPC 클릭 -> Interactable 스크립트 - Interact - actions -> messageAction 실행 - > DialogSystem - ShowMessages 실행 
                 }
+
+
                 else // 상호작용 가능한 오브젝트가 아니면 플레이어만 이동시킴. 
                 {
                     MovePlayer(hit.point); // hit.point : 이동 목적지
-                    //if (hit.collider.name == "Door")
-                    //{
-                    //    Invoke("ChangePlayerScene", 2f);
-                    //}
+                    if (hit.collider.name == "Door")
+                    {
+                        Invoke("ChangePlayerScene", 2f);
+                    }
                 }
             }
         }
 
     }
     public string PlayerSmellText { get { return smelltext; } }
+
+    public Button ObjectCenterButton { get { return centerbutton; } }
+    //public bool ObjectIsObserve { get { return isobserve; } }
     public Transform PlayerobserveView { get { return observeview; } }
-    public GameObject PlayerbiteObject { get { return biteobject; } }
     public GameObject PlayerNoahBiteObject { get { return noahbiteobject; } }
+    public GameObject PlayerNoahPushObject { get { return noahpushobject; } }
+    
+
     public Vector3 PlayerInteractionButtonPosition { get { return interactionbuttonposition; } }
-    /*
-    void Onclick()
-    {
-        RaycastHit hit; // Difference Between RaycastHit and Ray?? 
-        Ray camToScreen = mainCamera.ScreenPointToRay(Input.mousePosition);
-
-        // 왼쪽 마우스 클릭을 감지하면      // Q, 이거랑 아래 hit.collider!=nulll 한번에 쓰면 안됨?? 
-        if (Physics.Raycast(camToScreen, out hit, Mathf.Infinity)) // out??
-        {
-            // 무언가를 치면
-            if (hit.collider != null)
-            {
-               
-                // interactable : 부딪힌 오브젝트 or NPC 에 붙어있는 Interactable 컴포넌트
-                Interactable interactable = hit.collider.GetComponent<Interactable>();
-
-                if (interactable != null) // 부딪힌 오브젝트에 interactable 컴포넌트가 붙어있으면
-                {
-                    MovePlayer(interactable.InteractPosition()); // NPC 의 위치로 플레이어를 이동시킴
-
-                    barkButton.transform.gameObject.SetActive(true);
-                    pushButton.transform.gameObject.SetActive(true);
-                    observeButton.transform.gameObject.SetActive(true);
-                    sniffButton.transform.gameObject.SetActive(true);
-                    upButton.transform.gameObject.SetActive(true);
-
-                    // interactable.Interact(this); // this : PlayerScript 전달 ( argument ), 현재 PlayerScript 에 있으므로 this 로 전달 가능
-
-                    // 순서가 : PlayerScripts 에서 NPC 클릭 -> Interactable 스크립트 - Interact - actions -> messageAction 실행 - > DialogSystem - ShowMessages 실행 
-                }
-                else // 상호작용 가능한 오브젝트가 아니면 플레이어만 이동시킴. 
-                {
-                    MovePlayer(hit.point); // hit.point : 이동 목적지
-                }
-            }
-        }
-
-    }
-    */
-
 
     /*  플레이어가 목적지에 도착하면 True 를 반환하는 메서드  */
     public bool CheckIfArrived()
@@ -184,6 +160,7 @@ public class PlayerScripts : MonoBehaviour
         pushButton.transform.gameObject.SetActive(false);
         observeButton.transform.gameObject.SetActive(false);
         sniffButton.transform.gameObject.SetActive(false);
+        centerDisableButton.transform.gameObject.SetActive(false);
     }
 
     /* 플레이어가 NPC 를 바라보도록 각도를 바꿔주는 메서드 */
@@ -196,6 +173,12 @@ public class PlayerScripts : MonoBehaviour
     void ChangePlayerScene()
     {
         SceneManager.LoadScene(transferMapName);
+    }
+
+    /* 이 메서드가 없으면 스크립터블 오브젝트는 프로그램이 종료되어도 저장한 것을 계속 저장함 */
+    private void OnApplicationQuit()
+    {
+        inventory.Container.Clear();
     }
 }
 
