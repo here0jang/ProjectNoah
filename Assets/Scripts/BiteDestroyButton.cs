@@ -5,49 +5,45 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class BiteDestroyButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
-{
+public class BiteDestroyButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
+{ 
     public static BiteDestroyButton bitedestroybutton { get; private set; }
-
 
     void Awake()
     {
         bitedestroybutton = this;
     }
+
     public Animator playeranimation;
     [SerializeField] float requiredHoldTime = 1f;
     [SerializeField] float requiredChangeTime = 0.5f;
     float pointerDownTimer = 0;
 
     public Button BiteButton;
-    public Sprite BiteButtonImage;
-    public Sprite BiteButtonMouseOver;
-    public Sprite BiteButtonClicked; // PlayerScripts - MovePlayer 에서 버튼 이미지 BiteButtonImage 로 바꿈
-    public Sprite DestroyButtonMouseOver;
+    // PlayerScripts - MovePlayer 에서 버튼 이미지 BiteButtonImage 로 바꿈
+    public Sprite BiteButtonImage, BiteButtonMouseOver, BiteButtonClicked, DestroyButtonMouseOver;
 
     bool pointerDown = false;
 
     public bool ISBITE = false;
 
     public GameObject noahbiteObject;
-
-
     public GameObject myMouth;
 
     void Update()
     {
         if (pointerDown)
         {
-            //playerBite();
             pointerDownTimer += Time.deltaTime;
             if (pointerDownTimer >= requiredChangeTime)
             {
                 ChangeBiteToDestroyButton();
-                if (pointerDownTimer >= requiredHoldTime)
-                {
-                    playerDestroy();
-                    Reset();
-                }
+
+                Invoke("ChangeDestroyTrue", 1f);
+                longButton.longbutton.TurnOffInteractionButton();
+                Invoke("ChangeDestroyFalse", 3f);
+
+                Reset();
             }
         }
     }
@@ -62,27 +58,9 @@ public class BiteDestroyButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
         BiteButton.GetComponent<Image>().sprite = BiteButtonImage;
     }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        BiteButton.GetComponent<Image>().sprite = BiteButtonClicked;
-        longButton.longbutton.TurnOffInteractionButton();
-        //playerBite();
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        pointerDown = true;
-        ISBITE = true;
-        noahbiteObject = PlayerScripts.playerscripts.PlayerNoahBiteObject;
-
-        Invoke("ChangeBiteTrue", 0.5f);
-
-        Invoke("PlayerPickUp", 0.7f);
-        Invoke("ChangeBiteFalse", 1);
-    }
-
     public void OnPointerUp(PointerEventData eventData)
     {
+        longButton.longbutton.TurnOffInteractionButton();
         Reset();
     }
 
@@ -92,23 +70,15 @@ public class BiteDestroyButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
         pointerDownTimer = 0;
     }
 
-    void playerBite()
+    public void OnPointerDown(PointerEventData eventData)
     {
-        ISBITE = true;
+        BiteButton.GetComponent<Image>().sprite = BiteButtonClicked;
+        pointerDown = true;
         noahbiteObject = PlayerScripts.playerscripts.PlayerNoahBiteObject;
 
-        longButton.longbutton.TurnOffInteractionButton();
-
         Invoke("ChangeBiteTrue", 0.5f);
-
-        //noahbiteObject = PlayerScripts.playerscripts.PlayerNoahBiteObject;
-        //biteObject = PlayerScripts.playerscripts.PlayerbiteObject;
-
         Invoke("PlayerPickUp", 0.7f);
-        //Invoke("TurnOffEnvirObject", 1.1f);
-
-
-        Invoke("ChangeBiteFalse", 2);
+        Invoke("ChangeBiteFalse", 1);
     }
 
     void ChangeBiteTrue()
@@ -121,38 +91,19 @@ public class BiteDestroyButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
         playeranimation.SetBool("IsBiting", false);
     }
 
-    //void BiteObject()
-    //{
-    //    //noahbiteObject.transform.gameObject.SetActive(true);
-    //    //PickUpObject.pickupobject.PlayerPickUp(ObjectIwantToPickUp);
-    //}
-
-    //void TurnOffEnvirObject()
-    //{
-    //    //biteObject.transform.gameObject.SetActive(false);
-    //}
     void PlayerPickUp()
     {
+        ISBITE = true;
         noahbiteObject.GetComponent<Rigidbody>().isKinematic = true;   //makes the rigidbody not be acted upon by forces
         noahbiteObject.GetComponent<Rigidbody>().useGravity = false;
-        noahbiteObject.transform.position = myMouth.transform.position; // sets the position of the object to your hand position
-        noahbiteObject.transform.parent = myMouth.transform; //makes the object become a child of the parent so that it moves with the hands
+        noahbiteObject.transform.parent = myMouth.transform; //makes the object become a child of the parent so that it moves with the mouth
+        noahbiteObject.transform.localPosition = new Vector3(0,0,0); // sets the position of the object to your mouth position
+        noahbiteObject.transform.localEulerAngles = new Vector3(0, 0, 0); // sets the position of the object to your mouth position
     }
 
     void ChangeBiteToDestroyButton()
     {
         BiteButton.GetComponent<Image>().sprite = DestroyButtonMouseOver;
-    }
-
-    void playerDestroy()
-    {
-        longButton.longbutton.TurnOffInteractionButton();
-
-
-
-
-        Invoke("ChangeDestroyTrue", 2f);
-        Invoke("ChangeDestroyFalse", 4f);
     }
 
     void ChangeDestroyTrue()

@@ -44,5 +44,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isBark: 0
-  isPush: 0
-  noahThePlayer: {fileID: 0}

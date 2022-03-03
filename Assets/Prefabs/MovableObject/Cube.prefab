@@ -150,8 +150,8 @@ MonoBehaviour:
   smellText: paper
   centerButton: {fileID: 0}
   observeView: {fileID: 0}
-  biteObject: {fileID: 0}
-  playerBiteObject: {fileID: 0}
+  playerBiteObject: {fileID: 7494556922092109782}
+  playerPushObject: {fileID: 7494556922092109782}
   interactionButtonPosition: {x: 1300, y: 500, z: 0}
 --- !u!1001 &7494556922657379661
 PrefabInstance:

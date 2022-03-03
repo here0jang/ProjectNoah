@@ -8,11 +8,14 @@ public class cam : MonoBehaviour
     
     public Camera mainCamera;
 
-    private Transform camObserveView;
+    private Transform camObserveView, camObserveboxView;
     public Transform MainView;
+    public GameObject CockpitButtonDescription;
     // public float transitionSpeed;
     // public Transform currentVieww;
     [SerializeField] GameObject noah;
+
+    public GameObject AIPanels, UIs;
 
     private void Awake()
     {
@@ -22,14 +25,28 @@ public class cam : MonoBehaviour
     public void ObserveButtonClick()
     {
         camObserveView = PlayerScripts.playerscripts.PlayerobserveView;
+        camObserveboxView = PlayerScripts.playerscripts.PlayerobserveBoxView;
         //gameObject.GetComponent<SceneCameraControl>().enabled = false;
-        changeView(camObserveView);
+        AIPanels.SetActive(false);
+        UIs.SetActive(false);
+        if (longButton.longbutton.isGrounded == true)
+        {
+            changeView(camObserveView);
+        }
+        else
+        {
+            changeView(camObserveboxView);
+            CockpitButtonDescription.SetActive(true);
+        }
     }
 
     public void CancelObserve()
     {
+        AIPanels.SetActive(true);
+        UIs.SetActive(true);
         changeView(MainView);
         noah.transform.gameObject.SetActive(true);
+        CockpitButtonDescription.SetActive(false);
     }
 
     void Update()

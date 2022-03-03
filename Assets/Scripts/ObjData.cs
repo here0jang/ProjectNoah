@@ -5,21 +5,20 @@ using UnityEngine;
 
 public class ObjData : MonoBehaviour
 {
-    //[SerializeField] int ID;
+    public int id;
+
     //[SerializeField] string objectName;
 
-    //[SerializeField] bool IsSmell;
     [SerializeField] string smellText;
 
     [SerializeField] Button centerButton; // 가운데 추가행동 : 관찰, 오르기... 없으면 centerDisable 넣으면 됨
 
-    //[SerializeField] bool isObserve;
+    [SerializeField] Button pushOrPressButton; // 물건 옮기기 : push, 버튼 누르기 : press 
+
     [SerializeField] Transform observeView;
 
-    //[SerializeField] bool IsBark;
-    /* 오브젝트에 짖기 하면 생기는 반응 */
+    [SerializeField] Transform observeBoxView;
 
-    //[SerializeField] bool IsBite;
     [SerializeField] GameObject playerBiteObject;
 
     [SerializeField] GameObject playerPushObject;
@@ -29,10 +28,11 @@ public class ObjData : MonoBehaviour
 
 
     public string SmellText { get { return smellText; } }
-
+    public Button PushOrPressButton { get { return pushOrPressButton; } }
     public Button CenterButton { get { return centerButton; } }
-
     public Transform ObserveView { get { return observeView; } }
+
+    public Transform ObserveBoxView { get { return observeBoxView; } }
 
     public GameObject PlayerBiteObject { get { return playerBiteObject; } }
 
