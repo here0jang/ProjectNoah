@@ -6,29 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-<<<<<<< HEAD
-<<<<<<< HEAD
     path: Assets/Scenes/Cockpit.unity
     guid: 817ae0087854db848ad95815cee67d68
   - enabled: 1
     path: Assets/Scenes/Work.unity
-=======
-    path: Assets/Scenes/new cockpit/01Cockpit.unity
-    guid: 817ae0087854db848ad95815cee67d68
-  - enabled: 1
-    path: Assets/Scenes/01Work.unity
->>>>>>> 5aaaf16 (새 조종실)
-=======
-    path: Assets/Scenes/new cockpit/01Cockpit.unity
-    guid: 817ae0087854db848ad95815cee67d68
-  - enabled: 1
-    path: Assets/Scenes/01Work.unity
->>>>>>> 5aaaf16 (새 조종실)
     guid: 22b30d7c6d35a4149980b985d996da30
-  - enabled: 1
-    path: Assets/Scenes/Engine.unity
-    guid: 543153c400c50794baf87689e8f6e69a
-  - enabled: 1
-    path: Assets/Scenes/Living.unity
-    guid: 5e2e7c868d5affc46831621eed5484ba
   m_configObjects: {}
