@@ -11,11 +11,11 @@ public class DialogManager : MonoBehaviour
     public TMPro.TextMeshProUGUI dialogText;
     public GameObject AI;
 
-    public Image FadeImage;
-    public GameObject Fade;
+    public Image fadeImage;
+    public GameObject fade;
     private int i = 0;
 
-    public Image AIIcon;
+    public Image aiIcon;
 
     void Awake()
     {
@@ -28,22 +28,31 @@ public class DialogManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(FadeCoroutine());
+        if (SceneManager.GetActiveScene().name == "new workroom")
+        {
+            AI.SetActive(true);
+            Color color = aiIcon.GetComponent<Image>().color;
+            color.a = 1f;
+            aiIcon.GetComponent<Image>().color = color;
+
+        }
+        
     }
     IEnumerator FadeCoroutine()
     {
-        Color color = AIIcon.GetComponent<Image>().color;
+        Color color = aiIcon.GetComponent<Image>().color;
         color.a = 0f;
-        AIIcon.GetComponent<Image>().color = color;
+        aiIcon.GetComponent<Image>().color = color;
 
-        Color Fadecolor = FadeImage.GetComponent<Image>().color;
-        Fadecolor.a = 1f;
-        while (Fadecolor.a>=0)
+        Color fadeColor = fadeImage.GetComponent<Image>().color;
+        fadeColor.a = 1f;
+        while (fadeColor.a>=0)
         {
-            Fadecolor.a -= 0.005f;
-            FadeImage.GetComponent<Image>().color = Fadecolor;
-            yield return new WaitForSeconds(0.005f);
+            fadeColor.a -= 0.01f;
+            fadeImage.GetComponent<Image>().color = fadeColor;
+            yield return new WaitForSeconds(0.01f);
         }
-        Fade.SetActive(false);
+        fade.SetActive(false);
     }
 
     void GenerateData()
@@ -94,15 +103,15 @@ public class DialogManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         AI.SetActive(true);
 
-        Color color = AIIcon.GetComponent<Image>().color;
+        Color color = aiIcon.GetComponent<Image>().color;
         for (int i = 0; i < 3; i++)
         {
             color.a = 0f;
-            AIIcon.GetComponent<Image>().color = color;
-            yield return new WaitForSeconds(0.05f);
+            aiIcon.GetComponent<Image>().color = color;
+            yield return new WaitForSeconds(0.1f);
             color.a = 1f;
-            AIIcon.GetComponent<Image>().color = color;
-            yield return new WaitForSeconds(0.05f);
+            aiIcon.GetComponent<Image>().color = color;
+            yield return new WaitForSeconds(0.1f);
         }
 
         for (int i = 0; i < 11; i++)
@@ -116,17 +125,17 @@ public class DialogManager : MonoBehaviour
 
         AI.SetActive(false);
         color.a = 0f;
-        AIIcon.GetComponent<Image>().color = color;
+        aiIcon.GetComponent<Image>().color = color;
 
         yield return new WaitForSeconds(1f);
 
         for (int i = 0; i < 3; i++)
         {
             color.a = 0f;
-            AIIcon.GetComponent<Image>().color = color;
+            aiIcon.GetComponent<Image>().color = color;
             yield return new WaitForSeconds(0.05f);
             color.a = 1f;
-            AIIcon.GetComponent<Image>().color = color;
+            aiIcon.GetComponent<Image>().color = color;
             yield return new WaitForSeconds(0.05f);
         }
 

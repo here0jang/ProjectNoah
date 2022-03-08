@@ -70,11 +70,11 @@ public class SaveDataWhenSceneChange : MonoBehaviour
             }
 
             /* 2. 이전 씬에서 물고 있었던 오브젝트가 있었으면 이것을 플레이어의 자식화시킴 */
-            if (longButton.ISPUSH)
+            if (InteractionButtonController.ISPUSH)
             {
                 if (obj != null)
                 {
-                    obj = GameObject.Find("MovableObjects").transform.Find(longButton.pushObjectName).gameObject;
+                    obj = GameObject.Find("MovableObjects").transform.Find(InteractionButtonController.pushObjectName).gameObject;
                     if (obj != null)
                     {
                         obj.SetActive(true);
@@ -83,12 +83,12 @@ public class SaveDataWhenSceneChange : MonoBehaviour
                             obj.transform.parent = noahplayer.transform;
 
                             /* 3. 이 오브젝트를 다른 씬들에서는 비활성화 시킴 */
-                            if (longButton.pushObjectName == "box")
+                            if (InteractionButtonController.pushObjectName == "box")
                             {
                                 C_isBoxSetActive = true;
                                 W_isBoxSetActive = false;
                             }
-                            if (longButton.pushObjectName == "EnvirPipe")
+                            if (InteractionButtonController.pushObjectName == "EnvirPipe")
                             {
                                 C_isEnvirPipeSetActive = true;
                                 W_isEnvirPipeSetActive = false;
@@ -122,11 +122,11 @@ public class SaveDataWhenSceneChange : MonoBehaviour
             }
 
             /* 2. 이전 씬에서 물고 있었던 오브젝트가 있었으면 그것을 플레이어의 자식화시킴 */
-            if (longButton.ISPUSH)
+            if (InteractionButtonController.ISPUSH)
             {
                 if (obj != null)
                 {
-                    obj = GameObject.Find("WorkMovableObjects").transform.Find(longButton.pushObjectName).gameObject;
+                    obj = GameObject.Find("WorkMovableObjects").transform.Find(InteractionButtonController.pushObjectName).gameObject;
                     if (obj != null)
                     {
                         obj.SetActive(true);
@@ -135,12 +135,12 @@ public class SaveDataWhenSceneChange : MonoBehaviour
                             obj.transform.parent = noahplayer.transform;
 
                             /* 3. 이 오브젝트를 다른 씬들에서는 비활성화시킴 */
-                            if (longButton.pushObjectName == "box")
+                            if (InteractionButtonController.pushObjectName == "box")
                             {
                                 W_isBoxSetActive = true;
                                 C_isBoxSetActive = false;
                             }
-                            if (longButton.pushObjectName == "EnvirPipe")
+                            if (InteractionButtonController.pushObjectName == "EnvirPipe")
                             {
                                 W_isEnvirPipeSetActive = true;
                                 C_isEnvirPipeSetActive = false;

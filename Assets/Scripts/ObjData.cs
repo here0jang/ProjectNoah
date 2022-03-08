@@ -23,6 +23,8 @@ public class ObjData : MonoBehaviour
 
     [SerializeField] GameObject playerPushObject;
 
+    [SerializeField] GameObject playerClimbObject;
+
     [SerializeField] Vector3 interactionButtonPosition;
 
 
@@ -37,6 +39,8 @@ public class ObjData : MonoBehaviour
     public GameObject PlayerBiteObject { get { return playerBiteObject; } }
 
     public GameObject PlayerPushObject { get { return playerPushObject; } }
+
+    public GameObject PlayerClimbObject { get { return playerClimbObject; } }
 
     public Vector3 InteractionButtonPosition { get { return interactionButtonPosition; } }
 }

@@ -31,6 +31,29 @@ public class DialogSystem : MonoBehaviour
         panel.SetActive(false);
         smellpanel.SetActive(false);
     }
+
+    /* 상호작용 도중에 다른 곳으로 이동하면  메시지가 사라지게하는 메서드 */
+    public void HideDialog()
+    {
+        panel.SetActive(false);
+        smellpanel.SetActive(false);
+    }
+
+    public void Smell()
+    {
+        DialogSmellText = PlayerScripts.playerscripts.PlayerSmellText;
+        smellpanel.SetActive(true);
+        smellText.text = DialogSmellText;
+    }
+
+
+
+
+
+
+
+
+
     // 메서드를 사용할 때마다 항상 argument를 전달할 필요가 없기 때문에  List<Actions> 에 기본 값 할당 null
     public void ShowMessages(List<string> messages, bool dialog, List<Actions> yesActions = null, List<Actions> noActions = null, string yes = "Yes", string no = "No" )
     {
@@ -114,22 +137,5 @@ public class DialogSystem : MonoBehaviour
         {
             localActions[i].Act(); // Q. Show messages 실행?? 
         }
-    }
-
-    // dialog system 을 쓰고 있을 때 버튼을 클릭하면 패널이 사라지게 할 것 
-    // 새로운 메시지를 볼 때마다 
-
-    /* 상호작용 도중에 다른 곳으로 이동하면  메시지가 사라지게하는 메서드 */
-    public void HideDialog()
-    {
-        panel.SetActive(false);
-        smellpanel.SetActive(false);
-    }
-
-    public void Smell()
-    {
-        DialogSmellText = PlayerScripts.playerscripts.PlayerSmellText;
-        smellpanel.SetActive(true);
-        smellText.text = DialogSmellText;
     }
 }

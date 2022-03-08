@@ -45,6 +45,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogText: {fileID: 0}
   AI: {fileID: 0}
-  FadeImage: {fileID: 0}
-  Fade: {fileID: 0}
-  AIIcon: {fileID: 0}
+  fadeImage: {fileID: 0}
+  fade: {fileID: 0}
+  aiIcon: {fileID: 0}

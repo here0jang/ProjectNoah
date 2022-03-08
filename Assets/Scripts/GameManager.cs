@@ -1,54 +1,32 @@
-//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
-//using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-//public class GameManager : MonoBehaviour
-//{
-//    public DialogManager dialogManager;
-//    public TMPro.TextMeshProUGUI dialogText;
+public class GameManager : MonoBehaviour
+{
+    public static GameManager gameManager { get; private set; }
 
-//    public GameObject scanObject;
-//    public bool isAction;
-//    public int talkIndex;
+    public static int Hp = 100;
+    public bool isBark = false;
 
-//    private void Start()
-//    {
-//        Talk(1000);
-//    }
+    private void Awake()
+    {
+        gameManager = this;
+    }
 
-//    public void Action(GameObject scanObj)
-//    {
-//        if(isAction)
-//        {
-//            isAction = false;
-//        }
-//        else
-//        {
-//            isAction = true;
-//            scanObject = scanObj;
-//            ObjData objData = scanObject.GetComponent<ObjData>();
-//            Talk(objData.id);
-            
-//        }
-//    }
+    private void Update()
+    {
+        if(isBark == true) // Â¢À¸¸é
+        {
+            Hp -= 10;
+            isBark = false;
+        }
 
-//    void Talk(int id)
-//    {
-//        string talkData = dialogManager.GetTalk(id, talkIndex);
-//        if (talkData == null)
-//        {
-//            isAction = false;
-//            return;
-//        }
-//        dialogText.text = talkData;
-//        isAction = true;
 
-//        Invoke("IncreaseTalkIndex", 1f);
-//    }
-
-//    void IncreaseTalkIndex()
-//    {
-//        talkIndex++;
-//    }
-//}
+        //if (Input.GetKeyDown(KeyCode.Q))
+        //{
+        //    Debug.Log("Ã¼·Â: " + Hp);
+        //    //Debug.Log("isPush : " + isPush);
+        //}
+    }
+}

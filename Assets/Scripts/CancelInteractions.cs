@@ -6,76 +6,88 @@ using UnityEngine.AI;
 public class CancelInteractions : MonoBehaviour
 {
     private float objectDistance = 1f;
-    public GameObject NoahPosition;
-    public Animator PlayerAnimation;
-    private GameObject noahbiteobject;
-    private GameObject noahpushobject;
-    private GameObject noahNovepushobject;
     public NavMeshAgent Agent;
-    public GameObject moveableGroup;
+    public Animator playerAnimation;
 
-    public 
+    public GameObject noahPosition;
+    public GameObject moveableGroup;
+    private GameObject climbObject, biteObject, pushObject, noahNovepushobject;
+
     void Update()
     {
+        /* 나중에 상호작용 여러 개 취소 할 때 취소 순서도 넣을 것. ex. 오르기+물기 -> 1) 내려와서 2) 내려놓기 */
         if (Input.GetMouseButtonDown(1))
         {
-            cam.newCam.CancelObserve();
-            if (longButton.ISPUSH)
+            /* 관찰하기 취소 */
+            if (InteractionButtonController.interactionButtonController.isObserve)
             {
-                noahpushobject = longButton.longbutton.noahpushObject;
+                CameraController.cameraController.CancelObserve();
+                InteractionButtonController.interactionButtonController.isObserve = false;
+            }
+
+            /* 오르기 취소 */
+            if (InteractionButtonController.interactionButtonController.isGround == false)
+            {
+                climbObject = InteractionButtonController.interactionButtonController.noahClimbObject;
+                if (Agent.enabled)
+                {
+                    noahPosition.transform.position = new Vector3(climbObject.transform.localPosition.x, 33.78f, climbObject.transform.localPosition.z);
+                    Agent.updatePosition = true;
+                    Agent.updateRotation = true;
+                    Agent.isStopped = false;
+                }
+                InteractionButtonController.interactionButtonController.isGround = true;
+            }
+
+            /* 밀기 취소 */
+            if (InteractionButtonController.ISPUSH)
+            {
+                pushObject = InteractionButtonController.interactionButtonController.noahPushObject;
                 noahNovepushobject = SaveDataWhenSceneChange.savedata.obj;
 
-                if (noahpushobject != null)
+                if (pushObject != null)
                 {
-                    PlayerAnimation.SetBool("IsPushing", false);
-                    noahpushobject.transform.SetParent(null, true);
-                    noahpushobject.transform.parent = moveableGroup.transform;
-                    longButton.longbutton.ispush = false;
-                    Agent.radius = 0.75f;
+                    playerAnimation.SetBool("IsPushing", false);
+                    pushObject.transform.SetParent(null, true);
+                    pushObject.transform.parent = moveableGroup.transform;
+                    InteractionButtonController.interactionButtonController.ispush = false;
                 }
 
                 if(noahNovepushobject!=null)
                 {
-                    PlayerAnimation.SetBool("IsPushing", false);
+                    playerAnimation.SetBool("IsPushing", false);
                     noahNovepushobject.transform.SetParent(null, true);
                     noahNovepushobject.transform.parent = moveableGroup.transform; // 다시 무바블오브젝트의 자식으로 넣기
-
-                    longButton.longbutton.ispush = false;
-                    Agent.radius = 0.75f;
-                }
-
-                
+                    InteractionButtonController.interactionButtonController.ispush = false;
+                }               
             }
 
-            //if (BiteDestroyButton.bitedestroybutton.ISBITE)
-            //{
-            //    noahbiteobject = BiteDestroyButton.bitedestroybutton.noahbiteObject;
-            //    if (noahbiteobject != null)
-            //    {
-            //        noahbiteobject.GetComponent<Rigidbody>().isKinematic = false; // make the rigidbody work again
-            //                                                                      //noahbiteobject.GetComponent<Rigidbody>().useGravity = true;
-            //        noahbiteobject.transform.parent = null; // make the object no be a child of the hands           
-            //        noahbiteobject.transform.position = new Vector3(NoahPosition.gameObject.transform.position.x, 33.799f, NoahPosition.gameObject.transform.position.z);
-
-            //        noahbiteobject.transform.rotation = Quaternion.Euler(0, NoahPosition.gameObject.transform.rotation.y + 90, 0);
-            //        BiteDestroyButton.bitedestroybutton.ISBITE = false;
-            //    }
-            //}
-            if (longButton.longbutton.isGrounded == false)
+            /* 물기 취소 */
+            if (BiteDestroyButtonController.biteDestroyButtonController.isBite)
             {
-                noahpushobject = longButton.longbutton.noahpushObject;
-                if (Agent.enabled)
+                biteObject = BiteDestroyButtonController.biteDestroyButtonController.noahBiteObject;
+                if (biteObject != null)
                 {
-                    NoahPosition.transform.position = new Vector3(noahpushobject.transform.localPosition.x, 33.78f, noahpushobject.transform.localPosition.z);
-                    Agent.updatePosition = true;
-                    Agent.updateRotation = true;
-
+                    playerAnimation.SetBool("IsPutDowning", true);
+                    Invoke("CancelBitingAnimation", 1f);
+                    Invoke("PutDownObject", 0.5f);
+                    BiteDestroyButtonController.biteDestroyButtonController.isBite = false;
                 }
-
-                longButton.longbutton.isGrounded = true;
             }
-
         }
     }
 
+    void CancelBitingAnimation()
+    {
+        playerAnimation.SetBool("IsPutDowning", false);
+    }
+    void PutDownObject()
+    {
+        biteObject.GetComponent<Rigidbody>().isKinematic = false; 
+        biteObject.transform.parent = null;
+        biteObject.transform.position = new Vector3(biteObject.transform.position.x, 33.799f, biteObject.transform.position.z);
+    }
 }
+
+//biteObject.transform.position = new Vector3(noahPosition.gameObject.transform.position.x, 33.799f, noahPosition.gameObject.transform.position.z);
+//biteObject.transform.rotation = Quaternion.Euler(0, noahPosition.gameObject.transform.rotation.y + 90, 0);
