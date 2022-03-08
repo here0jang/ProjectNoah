@@ -128,8 +128,12 @@ public class PlayerScripts : MonoBehaviour
                     currentObject = hit.collider.gameObject;
                     NPCPosition = interactable.transform.position;
                     float interactButtonPositionX = 750 + 42 * (NPCPosition.x - 5);
-  
-                    interactionButtons.gameObject.transform.position = new Vector3(interactButtonPositionX, interactionbuttonposition.y, 0);
+                    if(hit.collider.name == "Console_Left_ResetButton" || hit.collider.name == "Console_Left_UnLockButton")
+                    {
+                        interactionButtons.gameObject.transform.position = new Vector3(interactionbuttonposition.x, interactionbuttonposition.y, 0);
+                    }
+                    else
+                        interactionButtons.gameObject.transform.position = new Vector3(interactButtonPositionX, interactionbuttonposition.y, 0);
 
                     Vector3 offset = PlayerPosition - NPCPosition;
                     float sqrLen = offset.sqrMagnitude; // 플레이어의 이동 전 현재 위치와 오브젝트 사이의 거리

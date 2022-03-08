@@ -50,7 +50,7 @@ public class DialogManager : MonoBehaviour
         {
             fadeColor.a -= 0.01f;
             fadeImage.GetComponent<Image>().color = fadeColor;
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(0.00001f);
         }
         fade.SetActive(false);
     }
