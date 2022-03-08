@@ -584,11 +584,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 120418749}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.1240579, y: 0.1950264, z: 0.14642948}
-  m_Center: {x: -0.09296414, y: -0.009469986, z: -0.047655515}
+  m_Size: {x: 0.2130826, y: 0.1950264, z: 0.4300718}
+  m_Center: {x: -0.08260001, y: -0.009469986, z: 0.09416565}
 --- !u!1001 &121660787
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -806,6 +806,7 @@ GameObject:
   - component: {fileID: 177136933}
   - component: {fileID: 177136932}
   - component: {fileID: 177136931}
+  - component: {fileID: 177136934}
   m_Layer: 7
   m_Name: Console_Left_ResetButton
   m_TagString: Untagged
@@ -867,7 +868,7 @@ MonoBehaviour:
   playerBiteObject: {fileID: 1068952796}
   playerPushObject: {fileID: 177136929}
   playerClimbObject: {fileID: 0}
-  interactionButtonPosition: {x: 1300, y: 500, z: 0}
+  interactionButtonPosition: {x: 1250, y: 600, z: 0}
 --- !u!65 &177136933
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -879,8 +880,27 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.157049, y: 0.1950264, z: 0.25409448}
-  m_Center: {x: -0.017314918, y: -0.009469986, z: 0.0061770193}
+  m_Size: {x: 0.157049, y: 0.1950264, z: 0.3330644}
+  m_Center: {x: -0.017314918, y: -0.009469986, z: 0.045662}
+--- !u!114 &177136934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177136929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c923382cf72fa04d8bb12a211717b0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distancePosition: 1.4
+  actionss:
+  - {fileID: 0}
+  barkButton: {fileID: 365641759}
+  sniffButton: {fileID: 365641758}
+  insertButton: {fileID: 0}
+  biteButton: {fileID: 365641757}
 --- !u!1001 &179251528
 PrefabInstance:
   m_ObjectHideFlags: 0
