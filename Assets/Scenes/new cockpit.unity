@@ -1235,13 +1235,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1451688030}
     - target: {fileID: 365641763, guid: 0b9650a00c67ad84cb0f2fa7bb0b1da4, type: 3}
+      propertyPath: goToWork
+      value: 
+      objectReference: {fileID: 367272305}
+    - target: {fileID: 365641763, guid: 0b9650a00c67ad84cb0f2fa7bb0b1da4, type: 3}
       propertyPath: noahAnim
       value: 
       objectReference: {fileID: 1451688032}
-    - target: {fileID: 365641763, guid: 0b9650a00c67ad84cb0f2fa7bb0b1da4, type: 3}
-      propertyPath: changeMap
-      value: 
-      objectReference: {fileID: 367272305}
     - target: {fileID: 365641763, guid: 0b9650a00c67ad84cb0f2fa7bb0b1da4, type: 3}
       propertyPath: DoorLocked
       value: 
@@ -1278,6 +1278,18 @@ PrefabInstance:
       propertyPath: playerAnimation
       value: 
       objectReference: {fileID: 1451688032}
+    - target: {fileID: 469678553, guid: 0b9650a00c67ad84cb0f2fa7bb0b1da4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 619572306, guid: 0b9650a00c67ad84cb0f2fa7bb0b1da4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3105269335064640555, guid: 0b9650a00c67ad84cb0f2fa7bb0b1da4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6855707438144792615, guid: 0b9650a00c67ad84cb0f2fa7bb0b1da4, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1518,7 +1530,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3018315550425481026, guid: 2bc624baa82dbbb428df208aa98102b8, type: 3}
       propertyPath: m_Name
-      value: ChangeMap
+      value: GoToWork
       objectReference: {fileID: 0}
     - target: {fileID: 3018315550425481055, guid: 2bc624baa82dbbb428df208aa98102b8, type: 3}
       propertyPath: m_RootOrder
@@ -6230,6 +6242,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1702008487}
     - target: {fileID: 6271890255095929717, guid: c6b43faf263d7e34cbe187faa257495c, type: 3}
+      propertyPath: transferMapName
+      value: new workroom
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271890255095929717, guid: c6b43faf263d7e34cbe187faa257495c, type: 3}
       propertyPath: interactionButtons
       value: 
       objectReference: {fileID: 365641761}
@@ -6870,11 +6886,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1533ffd28c7f8547ac882591494f176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentObject: {fileID: 0}
   transferMapName: 
   biteButton: {fileID: 0}
   BiteButtonimage: {fileID: 0}
   interactionButtons: {fileID: 0}
+  currentObject: {fileID: 0}
   IsDoorLocked: 1
   IsDoorClicked: 0
   isPipeInserted: 0
@@ -9425,7 +9441,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 556527193, guid: 4eefebe457be66c4bb1c7b678fc1baf6, type: 3}
       propertyPath: m_Size.z
-      value: 0.93092006
+      value: 0.67728096
       objectReference: {fileID: 0}
     - target: {fileID: 556527193, guid: 4eefebe457be66c4bb1c7b678fc1baf6, type: 3}
       propertyPath: m_Center.x
@@ -9437,7 +9453,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 556527193, guid: 4eefebe457be66c4bb1c7b678fc1baf6, type: 3}
       propertyPath: m_Center.z
-      value: -0.1288589
+      value: -0.0020392984
       objectReference: {fileID: 0}
     - target: {fileID: 556527193, guid: 4eefebe457be66c4bb1c7b678fc1baf6, type: 3}
       propertyPath: m_IsTrigger

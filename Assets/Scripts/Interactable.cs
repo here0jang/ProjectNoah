@@ -44,8 +44,7 @@ public class Interactable : MonoBehaviour
         currentPushOrPressButton = PlayerScripts.playerscripts.ObjectpushOrpressbutton;
         currentPushOrPressButton.transform.gameObject.SetActive(true);
 
-        //플로우차트에서 정해주기 
-        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        /* 수정 필요 */
         if(PlayerScripts.playerscripts.IsDoorClicked && BiteDestroyButtonController.biteDestroyButtonController.isBite)
         {
             currentCenterButton = insertButton;
@@ -53,10 +52,7 @@ public class Interactable : MonoBehaviour
         else
         {
             currentCenterButton = PlayerScripts.playerscripts.ObjectCenterButton;
-        }
-
-        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        //currentCenterButton = M_C1_CockpitOpen.nowCenterButton;
+        }        
         currentCenterButton.transform.gameObject.SetActive(true);
 
         // 3) npc 와 상호작용함

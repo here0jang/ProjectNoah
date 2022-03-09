@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3018315550425481052}
   - component: {fileID: 3018315550425481053}
   m_Layer: 0
-  m_Name: ChangeMap
+  m_Name: GoToWork
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

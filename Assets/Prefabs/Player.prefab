@@ -70,11 +70,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1533ffd28c7f8547ac882591494f176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentObject: {fileID: 0}
-  transferMapName: new workroom
+  transferMapName: Work
   biteButton: {fileID: 0}
   BiteButtonimage: {fileID: 21300000, guid: c212ba182c3ccb64689615b28937123a, type: 3}
   interactionButtons: {fileID: 0}
+  currentObject: {fileID: 0}
   IsDoorLocked: 1
   IsDoorClicked: 0
   isPipeInserted: 0

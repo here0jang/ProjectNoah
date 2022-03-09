@@ -7,12 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerScripts : MonoBehaviour
 {
-    /* 싱글턴 */
     public static PlayerScripts playerscripts { get; private set; }
-    private void Awake()
-    {
-        playerscripts = this;
-    }
 
     private NavMeshAgent agent;
     private Camera mainCamera;
@@ -21,19 +16,9 @@ public class PlayerScripts : MonoBehaviour
     private bool turning; // default : false
     private Quaternion targetRot; // 플레이어의 처음 각도
 
-    /* 플레이어와 NPC 사이의 거리를 측정하여 일정 거리 이하일 때만 상호작용 버튼 생성 위한 변수 */
-    private Vector3 playerPosition, interactObjectPosition = new Vector3();
-    private const float DistanceBetweenPlayerandObject = 25f;
-
-    /* 상호작용 오브젝트로부터 받아온 데이터 담는 변수 */
-    private string smellData;
-    private Button pushOrPressButtonData, centerButtonData;
-    private GameObject biteObjectData, pushObjectData, climbObjectData;
-    private Transform observeData, ObservePlusData; // ObservePlusData : 박스 위에서 관찰 등
-    private Vector3 interactButtonPositionData;
-
-    /* 해당 플로우차트에 넘길 상호작용 오브젝트 변수 */
-    public GameObject currentObject;
+    /* 플레이어와 NPC 사이의 거리가 얼마나 가까우면 상호작용 버튼 나타나게 할지 */
+    private Vector3 PlayerPosition, NPCPosition = new Vector3();
+    private float DistanceBetweenPlayerandNPC = 25f;
 
     /* 문 클릭 시 이동할 씬*/
     public string transferMapName;
@@ -42,21 +27,31 @@ public class PlayerScripts : MonoBehaviour
     public GameObject biteButton;
     public Sprite BiteButtonimage;
 
-    /* 오브젝트 위치가 변할 때마다 버튼 위치도 다시 정하기 위한 변수 */
-    public GameObject interactionButtons;
+    /* 상호작용 오브젝트로부터 받아온 데이터 담는 변수 */
+    private string smellData;
+    private Button pushOrPressButtonData, centerButtonData;
+    private GameObject biteObjectData, pushObjectData, climbObjectData;
+    private Transform observeData, ObservePlusData; // ObservePlusData : 박스 위에서 관찰 등
+
+    private Vector3 interactionbuttonposition;
 
 
-    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    /* 전부 플로우차트로 옮기기 */
+    public GameObject interactionButtons, currentObject;
+
+
     public bool IsDoorLocked = true;
     public bool IsDoorClicked= false;
     public bool isPipeInserted = false;
     public GameObject DoorClickArea;
     public bool isDoorClickAreaClicked = false;
-    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
 
+
+    private void Awake()
+    {
+        playerscripts = this;
+    }
 
     void Start()
     {
@@ -72,6 +67,7 @@ public class PlayerScripts : MonoBehaviour
         {
            Onclick(); 
         }
+
         // 회전하는 중이고(참) && 플레이어의 현재 각도와 초기 각도가 다르면??  // Q. 여기 if 문이 뭔일하는지 솔직히 모르겠음
         if(turning&&transform.rotation!=targetRot)
         {
@@ -83,15 +79,34 @@ public class PlayerScripts : MonoBehaviour
 
     void Onclick()
     {
-        RaycastHit hit;
-        Ray camToScreen = mainCamera.ScreenPointToRay(Input.mousePosition); // 레이저가 나가는 위치 : 왼쪽 마우스
-        if (Physics.Raycast(camToScreen, out hit, Mathf.Infinity))
+        RaycastHit hit; //  충돌이 일어나면 코드 실행, 
+        Ray camToScreen = mainCamera.ScreenPointToRay(Input.mousePosition);
+        // 왼쪽 마우스 클릭을 감지하면      // Q, 이거랑 아래 hit.collider!=nulll 한번에 쓰면 안됨?? 
+        if (Physics.Raycast(camToScreen, out hit, Mathf.Infinity)) // out??
         {
-            if (hit.collider != null) // 무언가를 치면 (상호작용 오브젝트 + 바닥)
+            if (hit.collider != null) // 무언가를 치면
             {
-                playerPosition = this.gameObject.transform.position; // 플레이어의 이동 전 현재 위치
-                pushObjectData = hit.collider.gameObject;
+                if(hit.collider.name == "DoorUnLocked"&&UnLockDoor.unlockDoor.isDoorPipeInserted)
+                {
+                    isPipeInserted = true;
+                    DoorClickArea.SetActive(true);
+                    Time.timeScale = 0;
+                    
+                }
+                if (hit.collider.name == "OpenDoorClickArea")
+                {
+                    isDoorClickAreaClicked = true;
+                    DoorClickArea.SetActive(false);
 
+                }
+
+                if (hit.collider.name == "GoToWork")
+                {
+                    Invoke("ChangePlayerScene", 1f);
+                }
+
+                PlayerPosition = this.gameObject.transform.position;
+                pushObjectData = hit.collider.gameObject;
                 Interactable interactable = hit.collider.GetComponent<Interactable>(); // interactable : 부딪힌 오브젝트 or NPC 에 붙어있는 Interactable 컴포넌트         
                 ObjData objData = hit.collider.GetComponent<ObjData>();
 
@@ -105,35 +120,30 @@ public class PlayerScripts : MonoBehaviour
                     biteObjectData = objData.PlayerBiteObject;
                     pushObjectData = objData.PlayerPushObject;
                     climbObjectData = objData.PlayerClimbObject;
-                    interactButtonPositionData = objData.InteractionButtonPosition;
+                    interactionbuttonposition = objData.InteractionButtonPosition;
                 }
 
-                if (interactable != null) // 부딪힌게 상호작용 오브젝트 일 때 
+                if (interactable != null) // 부딪힌 오브젝트에 interactable 컴포넌트가 붙어있으면
                 {
-                    interactObjectPosition = interactable.transform.position; // 상호작용 오브젝트의 위치
-
-                    float interactButtonPositionX = 750 + 42 * (interactObjectPosition.x - 5);
-
-                    /* "관찰하기" 뷰에서 상호작용 버튼을 띄우는 오브젝트들 예외 처리 (탑뷰 : X축, Z축, 관찰하기 뷰 : Y축, Z축) */
-                    if (hit.collider.name == "Console_Left_ResetButton" || hit.collider.name == "Console_Left_UnLockButton")
+                    currentObject = hit.collider.gameObject;
+                    NPCPosition = interactable.transform.position;
+                    float interactButtonPositionX = 750 + 42 * (NPCPosition.x - 5);
+                    if(hit.collider.name == "Console_Left_ResetButton" || hit.collider.name == "Console_Left_UnLockButton")
                     {
-                        interactionButtons.gameObject.transform.position = new Vector3(interactButtonPositionData.x, interactButtonPositionData.y, 0);
+                        interactionButtons.gameObject.transform.position = new Vector3(interactionbuttonposition.x, interactionbuttonposition.y, 0);
                     }
                     else
-                    {
-                        interactionButtons.gameObject.transform.position = new Vector3(interactButtonPositionX, interactButtonPositionData.y, 0); // 버튼이 오브젝트 위치를 따라다니게 함
-                    }
-                    Vector3 offset = playerPosition - interactObjectPosition; // 플레이어의 이동 전 현재 위치와 오브젝트 사이의 거리
-                    float sqrLen = offset.sqrMagnitude; 
+                        interactionButtons.gameObject.transform.position = new Vector3(interactButtonPositionX, interactionbuttonposition.y, 0);
+
+                    Vector3 offset = PlayerPosition - NPCPosition;
+                    float sqrLen = offset.sqrMagnitude; // 플레이어의 이동 전 현재 위치와 오브젝트 사이의 거리
 
                     MovePlayer(interactable.InteractPosition()); // NPC 의 위치로 플레이어를 이동시킴
-
-                    /* 플레이어와 오브젝트 사이의 거리가 가까우면 상호작용 버튼 생성 */
-                    if (sqrLen < DistanceBetweenPlayerandObject)
+                    Debug.Log(interactable.InteractPosition());
+                    if (sqrLen < DistanceBetweenPlayerandNPC)
                     {
-                        currentObject = hit.collider.gameObject; /* 플로우차트 스크립트에 정보 넘김 */
-                        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-                        if (currentObject.name == "DoorLocked")
+                        interactable.Interact(this); // this : PlayerScript 전달 ( argument ), 현재 PlayerScript 에 있으므로 this 로 전달 가능
+                        if (hit.collider.name == "DoorLocked")
                         {
                             IsDoorClicked = true;
                             if (IsDoorLocked)
@@ -141,40 +151,17 @@ public class PlayerScripts : MonoBehaviour
                                 DialogManager.dialogManager.DoorLock();
                             }
                         }
-                        if (hit.collider.name == "DoorUnLocked" && UnLockDoor.unlockDoor.isDoorPipeInserted)
-                        {
-                            isPipeInserted = true;
-                            DoorClickArea.SetActive(true);
-                            Time.timeScale = 0;
-
-                        }
-                        if (hit.collider.name == "OpenDoorClickArea")
-                        {
-                            isDoorClickAreaClicked = true;
-                            DoorClickArea.SetActive(false);
-                        }
-                        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-
-
-
-
-                        interactable.Interact(this); // this : PlayerScript 전달 ( argument )
-                    } 
+                    } // 순서가 : PlayerScripts 에서 NPC 클릭 -> Interactable 스크립트 - Interact - actions -> messageAction 실행 - > DialogSystem - ShowMessages 실행 
                 }
-                else // 클릭한 곳이 바닥일 때(클릭한 위치로 이동) 
-                {
-                    MovePlayer(hit.point); // hit.point : 목적지
 
-                    /* 예외로 다른 맵으로 이동할 때만 여기서 처리 (인터렉터블 컴포넌트가 붙어있지 많으므로 ) */
-                    if (hit.collider.name == "ChangeMap")
-                    {
-                        Invoke("ChangePlayerScene", 1f);
-                    }
+                else // 상호작용 가능한 오브젝트가 아니면 플레이어만 이동시킴. 
+                {
+                    MovePlayer(hit.point); // hit.point : 이동 목적지
+
                 }
             }
         }
-        // 순서가 : PlayerScripts 에서 NPC 클릭 -> Interactable 스크립트 - Interact - actions -> messageAction 실행 - > DialogSystem - ShowMessages 실행 
+
     }
     public string PlayerSmellText { get { return smellData; } }
     public Button ObjectpushOrpressbutton { get { return pushOrPressButtonData; } }
@@ -184,7 +171,7 @@ public class PlayerScripts : MonoBehaviour
     public GameObject PlayerNoahBiteObject { get { return biteObjectData; } }
     public GameObject PlayerNoahPushObject { get { return pushObjectData; } }
     public GameObject PlayerNoahClimbObject { get { return climbObjectData; } }
-    public Vector3 PlayerInteractionButtonPosition { get { return interactButtonPositionData; } }
+    public Vector3 PlayerInteractionButtonPosition { get { return interactionbuttonposition; } }
 
     /*  플레이어가 목적지에 도착하면 True 를 반환하는 메서드  */
     public bool CheckIfArrived()

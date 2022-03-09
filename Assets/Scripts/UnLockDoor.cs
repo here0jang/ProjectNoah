@@ -18,7 +18,7 @@ public class UnLockDoor : MonoBehaviour
     {
         if (PlayerScripts.playerscripts.isPipeInserted && PlayerScripts.playerscripts.isDoorClickAreaClicked)
         {
-            InteractionButtonController.interactionButtonController.ChangeInsertFalse();
+            InteractionButtonController.interactionButtonController.ChangeInsertfalse();
             InteractionButtonController.interactionButtonController.TurnOffInsertArea();
 
             Time.timeScale = 1f;

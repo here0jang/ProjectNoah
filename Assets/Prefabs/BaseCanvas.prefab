@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &469678554
 RectTransform:
   m_ObjectHideFlags: 0
@@ -51,7 +51,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &619572307
 RectTransform:
   m_ObjectHideFlags: 0
@@ -642,7 +642,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6394926281617239750
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1091,7 +1091,7 @@ MonoBehaviour:
   playerRigidbody: {fileID: 0}
   playerAgent: {fileID: 0}
   noahClimbObject: {fileID: 0}
-  changeMap: {fileID: 0}
+  goToWork: {fileID: 0}
   noahPushObject: {fileID: 0}
   ispush: 0
   InsertArea: {fileID: 0}

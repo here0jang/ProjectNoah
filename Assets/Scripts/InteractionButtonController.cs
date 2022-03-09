@@ -15,20 +15,8 @@ public class InteractionButtonController : MonoBehaviour
     public Button barkButton, pushButton, pressButton, sniffButton, biteButton, upDownButton, insertButton, noCenterButton, observeButton;
     [SerializeField] GameObject noah, noahPlayer;
 
-    private GameObject currentInteractObject;
-
-    private GameObject noahBarkObject;
-    //private GameObject noahPushObject;
-    private GameObject noahPressObject;
-    private GameObject noahSniffObject;
-    private GameObject noahBiteObject;
-    private GameObject noahUpDownObject;
-    private GameObject noahInsertObject;
-    private GameObject noahObserveObject;
-
     public bool isObserve = false;
     public bool isBark = false;
-
 
     public bool isGround = true;
     public Rigidbody playerRigidbody;
@@ -38,11 +26,11 @@ public class InteractionButtonController : MonoBehaviour
 
 
 
-    public GameObject changeMap;
+    public GameObject goToWork;
     public GameObject noahPushObject;
     public static GameObject noahpushobject;
     public static bool ISPUSH = false;
-    public bool ispush = false;  
+    public bool ispush = false;
     public static string pushObjectName;
 
     public GameObject InsertArea, DoorLocked, DoorUnLocked;
@@ -90,7 +78,6 @@ public class InteractionButtonController : MonoBehaviour
 
     private void Update()
     {
-        currentInteractObject = PlayerScripts.playerscripts.currentObject;
         if (ispush == false)
         {
             ISPUSH = false;
@@ -109,7 +96,6 @@ public class InteractionButtonController : MonoBehaviour
         noahClimbObject = PlayerScripts.playerscripts.PlayerNoahClimbObject;
         risePosition = noahClimbObject.transform.localPosition;
         TurnOffInteractionButton();
-
         if (isGround)
         {
             isGround = false;
@@ -162,6 +148,8 @@ public class InteractionButtonController : MonoBehaviour
     {
         noahAnim.SetBool("IsRising5", true);
     }
+
+
     void ChangeRiseFalse()
     {
         noahAnim.SetBool("IsRising", false);
@@ -236,30 +224,41 @@ public class InteractionButtonController : MonoBehaviour
     void playerInserting()
     {
         TurnOffInteractionButton();
-
-        //InsertArea.SetActive(true);
-
-        if (playerAgent.enabled)
-        {
-            playerAgent.updatePosition = false;
-            playerAgent.updateRotation = false;
-            playerAgent.isStopped = true;
-        }
         Invoke("ChangeInsertTrue", 0.5f);
-        Invoke("ChangeInsertFalse", 0.5f);
+        //InsertArea.SetActive(true);
+        if (isGround)
+        {
+            isGround = false;
+            if (playerAgent.enabled)
+            {
+                // set the agents target to where you are before the jump
+                // this stops her before she jumps. Alternatively, you could
+                // cache this value, and set it again once the jump is complete
+                // to continue the original move
+                //Playeragent.SetDestination(transform.position);
+                // disable the agent
+                playerAgent.updatePosition = false;
+                playerAgent.updateRotation = false;
+                playerAgent.isStopped = true;
+            }
+        }
+
         noahPlayer.transform.position = new Vector3(21.5f, 34.03531f, -1.002877f);
         noahPlayer.transform.rotation = Quaternion.Euler(0, 0, 0);
-
         //NoahPlayer.transform.Rotate(0, 0, 0);
         //Playeragent.isStopped = false;
-        
         DoorController.doorController.isDoorOpen = true;
-        changeMap.SetActive(true);
-        playerAgent.updatePosition = true;
-        playerAgent.updateRotation = true;
-        playerAgent.isStopped = false;
-        
-        
+        isGround = true;
+        Invoke("ChangeInsertFalse", 0.05f);
+        goToWork.SetActive(true);
+        if (playerAgent.enabled)
+        {
+            playerAgent.updatePosition = true;
+            playerAgent.updateRotation = true;
+            playerAgent.isStopped = false;
+        }
+
+
 
 
         //DoorLocked.SetActive(false);
@@ -271,7 +270,7 @@ public class InteractionButtonController : MonoBehaviour
         noahAnim.SetBool("IsInserting", true);
     }
 
-    public void ChangeInsertFalse()
+    public void ChangeInsertfalse()
     {
         noahAnim.SetBool("IsInserting", false);
     }
@@ -345,9 +344,6 @@ public class InteractionButtonController : MonoBehaviour
 
     void playerObserve()
     {
-        noahObserveObject = currentInteractObject;
-        ObjData noahObserveObjecttData = noahObserveObject.GetComponent<ObjData>();
-        noahObserveObjecttData.IsObserve = true;
         TurnOffInteractionButton();
         Invoke("ChangeObserveTrue", 0.5f);
         Invoke("ChangeObserveFalse", 2);
