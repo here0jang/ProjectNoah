@@ -28,19 +28,25 @@ public class ObjData : MonoBehaviour
     [SerializeField] Vector3 interactionButtonPosition;
 
 
-
     public string SmellText { get { return smellText; } }
     public Button PushOrPressButton { get { return pushOrPressButton; } }
     public Button CenterButton { get { return centerButton; } }
     public Transform ObserveView { get { return observeView; } }
-
     public Transform ObserveBoxView { get { return observeBoxView; } }
-
     public GameObject PlayerBiteObject { get { return playerBiteObject; } }
-
     public GameObject PlayerPushObject { get { return playerPushObject; } }
-
     public GameObject PlayerClimbObject { get { return playerClimbObject; } }
-
     public Vector3 InteractionButtonPosition { get { return interactionButtonPosition; } }
+
+
+    /* 취소하면 Cancel Interaction 에서 false 로 바꾸기 */ 
+    public bool IsBark; 
+    public bool IsSniff; // 냄새 맡기하면 이후 선택지 등에 변화를 주기 위해서
+    public bool IsBite;
+    public bool IsDestroy;
+    public bool IsPushOrPress;
+
+    public bool IsObserve;
+    public bool IsUp;
+    public bool IsInsert;
 }

@@ -14,6 +14,8 @@ public class BiteDestroyButtonController : MonoBehaviour, IPointerEnterHandler, 
         biteDestroyButtonController = this;
     }
 
+    public bool isBite = false;
+
     public Animator playerAnimation;
 
     bool isPointerDown = false;
@@ -26,8 +28,6 @@ public class BiteDestroyButtonController : MonoBehaviour, IPointerEnterHandler, 
 
     public GameObject noahBiteObject;
     public GameObject myMouth;
-    public bool isBite = false;
-
 
     void Update()
     {

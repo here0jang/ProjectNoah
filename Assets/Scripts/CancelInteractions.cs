@@ -86,7 +86,7 @@ public class CancelInteractions : MonoBehaviour
         biteObject.GetComponent<Rigidbody>().isKinematic = false; 
         biteObject.transform.parent = null;
         biteObject.transform.position = new Vector3(biteObject.transform.position.x, 33.799f, biteObject.transform.position.z);
-    }
+    }                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 }
 
 //biteObject.transform.position = new Vector3(noahPosition.gameObject.transform.position.x, 33.799f, noahPosition.gameObject.transform.position.z);
