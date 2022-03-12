@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ObjData : MonoBehaviour
 {
-    public int id;
+    //public int id;
 
     //[SerializeField] string objectName;
 
@@ -17,15 +17,7 @@ public class ObjData : MonoBehaviour
 
     [SerializeField] Transform observeView;
 
-    [SerializeField] Transform observeBoxView;
-
-    [SerializeField] GameObject playerBiteObject;
-
-    [SerializeField] GameObject playerPushObject;
-
-    [SerializeField] GameObject playerClimbObject;
-
-    [SerializeField] Vector3 interactionButtonPosition;
+    [SerializeField] Transform observePlusView;
 
 
 
@@ -33,14 +25,19 @@ public class ObjData : MonoBehaviour
     public Button PushOrPressButton { get { return pushOrPressButton; } }
     public Button CenterButton { get { return centerButton; } }
     public Transform ObserveView { get { return observeView; } }
+    public Transform ObservePlusView { get { return observePlusView; } }
 
-    public Transform ObserveBoxView { get { return observeBoxView; } }
+    public bool IsBark = false;
+    public bool IsPushOrPress = false;
+    public bool IsSniff = false;
+    public bool IsBite = false;
 
-    public GameObject PlayerBiteObject { get { return playerBiteObject; } }
+    public bool IsUpDown = false;
+    public bool IsInsert = false;
+    public bool IsObserve = false;
+    public bool IsObservePlus = false;
+    public bool IsExtraDescriptionActive = false;
 
-    public GameObject PlayerPushObject { get { return playerPushObject; } }
-
-    public GameObject PlayerClimbObject { get { return playerClimbObject; } }
-
-    public Vector3 InteractionButtonPosition { get { return interactionButtonPosition; } }
+    public GameObject exterDescription;
+    
 }

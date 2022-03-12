@@ -26,7 +26,6 @@ public class BiteDestroyButtonController : MonoBehaviour, IPointerEnterHandler, 
 
     public GameObject noahBiteObject;
     public GameObject myMouth;
-    public bool isBite = false;
 
 
     void Update()
@@ -71,9 +70,11 @@ public class BiteDestroyButtonController : MonoBehaviour, IPointerEnterHandler, 
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        noahBiteObject = PlayerScripts.playerscripts.currentObject;
+        ObjData noahBiteData = noahBiteObject.GetComponent<ObjData>();
+        noahBiteData.IsBite = true;
         biteDestroyButton.GetComponent<Image>().sprite = biteButtonClicked;
         isPointerDown = true;
-        noahBiteObject = PlayerScripts.playerscripts.PlayerNoahBiteObject;
 
         Invoke("ChangeBiteTrue", 0.5f);
         Invoke("PlayerPickUp", 0.7f);
@@ -92,7 +93,6 @@ public class BiteDestroyButtonController : MonoBehaviour, IPointerEnterHandler, 
 
     void PlayerPickUp()
     {
-        isBite = true;
         noahBiteObject.GetComponent<Rigidbody>().isKinematic = true;   //makes the rigidbody not be acted upon by forces
         noahBiteObject.GetComponent<Rigidbody>().useGravity = false;
         noahBiteObject.transform.parent = myMouth.transform; //makes the object become a child of the parent so that it moves with the mouth

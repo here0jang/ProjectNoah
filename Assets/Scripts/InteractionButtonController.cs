@@ -15,14 +15,30 @@ public class InteractionButtonController : MonoBehaviour
     public Button barkButton, pushButton, pressButton, sniffButton, biteButton, upDownButton, insertButton, noCenterButton, observeButton;
     [SerializeField] GameObject noah, noahPlayer;
 
-    public bool isObserve = false;
+
+
+
+
+  
     public bool isBark = false;
 
-    public bool isGround = true;
+
+
     public Rigidbody playerRigidbody;
     public NavMeshAgent playerAgent;
     private Vector3 risePosition;
-    public GameObject noahClimbObject;
+
+
+    
+    public GameObject noahPushOrPressObject;
+    public GameObject noahSniffObject;
+    public GameObject noahBarkObject;
+
+    public GameObject noahUpDownObject;
+    public GameObject noahInsertObject;
+    public GameObject noahObserveObject;
+
+
 
 
 
@@ -78,6 +94,7 @@ public class InteractionButtonController : MonoBehaviour
 
     private void Update()
     {
+
         if (ispush == false)
         {
             ISPUSH = false;
@@ -91,79 +108,10 @@ public class InteractionButtonController : MonoBehaviour
     }
 
     //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-    void playerRising()
-    {
-        noahClimbObject = PlayerScripts.playerscripts.PlayerNoahClimbObject;
-        risePosition = noahClimbObject.transform.localPosition;
-        TurnOffInteractionButton();
-        if (isGround)
-        {
-            isGround = false;
-            if (playerAgent.enabled)
-            {
-                // set the agents target to where you are before the jump
-                // this stops her before she jumps. Alternatively, you could
-                // cache this value, and set it again once the jump is complete
-                // to continue the original move
-                //Playeragent.SetDestination(transform.position);
-                // disable the agent
-                playerAgent.updatePosition = false;
-                playerAgent.updateRotation = false;
-                playerAgent.isStopped = true;
-            }
-            Invoke("ChangeRiseTrue", 0.5f);
-            Invoke("ChangeRise2True", 0.5f);
-            Invoke("ChangeRise3True", 0.5f);
-            Invoke("ChangeRise4True", 0.5f);
-            Invoke("ChangeRise5True", 0.5f);
-            Invoke("noahJump", 1f);
-            // make the jump
-            //rigidbodybody.isKinematic = false;
-            //rigidbodybody.useGravity = true;
-            //rigidbodybody.AddRelativeForce(new Vector3(0, 5f, 0), ForceMode.Impulse);
-            Invoke("ChangeRiseFalse", 2);
-
-            playerAgent.isStopped = false;
-        }
-    }
-
-    void ChangeRiseTrue()
-    {
-        noahAnim.SetBool("IsRising", true);
-
-    }
-    void ChangeRise2True()
-    {
-        noahAnim.SetBool("IsRising2", true);
-    }
-    void ChangeRise3True()
-    {
-        noahAnim.SetBool("IsRising3", true);
-    }
-    void ChangeRise4True()
-    {
-        noahAnim.SetBool("IsRising4", true);
-    }
-    void ChangeRise5True()
-    {
-        noahAnim.SetBool("IsRising5", true);
-    }
-
-
-    void ChangeRiseFalse()
-    {
-        noahAnim.SetBool("IsRising", false);
-    }
-    void noahJump()
-    {
-        noahPlayer.transform.position = new Vector3(risePosition.x, 34.69f, risePosition.z + 0.4f);
-    }
-
-    //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
     void playerPush()
     {
-        noahPushObject = PlayerScripts.playerscripts.PlayerNoahPushObject;
+        noahPushObject = PlayerScripts.playerscripts.currentObject;
         noahpushobject = noahPushObject;
         pushObjectName = noahPushObject.name;
         //PlayerManager.playermanager.ISPUSH = true;
@@ -183,13 +131,19 @@ public class InteractionButtonController : MonoBehaviour
 
     void playerPress()
     {
-        noahPushObject = PlayerScripts.playerscripts.PlayerNoahPushObject;
+        noahPushOrPressObject = PlayerScripts.playerscripts.currentObject;
+        ObjData noahPushOrPressData = noahPushOrPressObject.GetComponent<ObjData>();
+        noahPushOrPressData.IsPushOrPress = true;
+
         TurnOffInteractionButton();
-        // ž��� ��ȯ�Ѵ�. 
+
         CameraController.cameraController.CancelObserve();
-        // ��� ������ �ִϸ��̼� �����ش�. 
+
         Invoke("ChangePressTrue", 0.5f);
         Invoke("ChangePressFalse", 2f);
+
+
+
         if (noahPushObject.name == "Console_Left_ResetButton")
         {
             DialogManager.dialogManager.ResetSystem();
@@ -210,6 +164,8 @@ public class InteractionButtonController : MonoBehaviour
     {
         noahAnim.SetBool("IsPressing", false);
     }
+
+
     void IsDoorOpentTrue()
     {
         DoorController.doorController.isDoorOpen = true;
@@ -223,12 +179,16 @@ public class InteractionButtonController : MonoBehaviour
 
     void playerInserting()
     {
+        noahInsertObject = PlayerScripts.playerscripts.currentObject;
+        ObjData noahInsertData = noahInsertObject.GetComponent<ObjData>();
+        
+
         TurnOffInteractionButton();
         Invoke("ChangeInsertTrue", 0.5f);
         //InsertArea.SetActive(true);
-        if (isGround)
+        if (noahInsertData.IsInsert == false)
         {
-            isGround = false;
+            noahInsertData.IsInsert = true;
             if (playerAgent.enabled)
             {
                 // set the agents target to where you are before the jump
@@ -245,10 +205,12 @@ public class InteractionButtonController : MonoBehaviour
 
         noahPlayer.transform.position = new Vector3(21.5f, 34.03531f, -1.002877f);
         noahPlayer.transform.rotation = Quaternion.Euler(0, 0, 0);
+
         //NoahPlayer.transform.Rotate(0, 0, 0);
         //Playeragent.isStopped = false;
+
         DoorController.doorController.isDoorOpen = true;
-        isGround = true;
+        noahInsertData.IsInsert = false;
         Invoke("ChangeInsertFalse", 0.05f);
         goToWork.SetActive(true);
         if (playerAgent.enabled)
@@ -257,9 +219,6 @@ public class InteractionButtonController : MonoBehaviour
             playerAgent.updateRotation = true;
             playerAgent.isStopped = false;
         }
-
-
-
 
         //DoorLocked.SetActive(false);
         //DoorUnLocked.SetActive(true);
@@ -299,7 +258,11 @@ public class InteractionButtonController : MonoBehaviour
 
     void playerBark()
     {
-        GameManager.gameManager.isBark = true;
+        noahBarkObject = PlayerScripts.playerscripts.currentObject;
+        ObjData noahBarkData = noahBarkObject.GetComponent<ObjData>();
+        noahBarkData.IsBark = true;
+
+        GameManager.gameManager.isBark = true; // 나중에 수정 필요 */
         TurnOffInteractionButton();
         Invoke("ChangeBarkTrue", 0.5f);
         Invoke("ChangeBarkFalse", 2);
@@ -319,6 +282,9 @@ public class InteractionButtonController : MonoBehaviour
 
     void playerSniff()
     {
+        noahSniffObject = PlayerScripts.playerscripts.currentObject;
+        ObjData noahSniffData = noahSniffObject.GetComponent<ObjData>();
+        noahSniffData.IsSniff = true;
         TurnOffInteractionButton();
         Invoke("ChangeSniffTrue", 0.5f);
         Invoke("ChangeSniffFalse", 2);
@@ -344,6 +310,10 @@ public class InteractionButtonController : MonoBehaviour
 
     void playerObserve()
     {
+        noahObserveObject = PlayerScripts.playerscripts.currentObject;
+        ObjData noahObserveData = noahObserveObject.GetComponent<ObjData>();
+        noahObserveData.IsObserve = true;
+
         TurnOffInteractionButton();
         Invoke("ChangeObserveTrue", 0.5f);
         Invoke("ChangeObserveFalse", 2);
@@ -364,6 +334,66 @@ public class InteractionButtonController : MonoBehaviour
     {
         CameraController.cameraController.ObserveButtonClick();
         noah.transform.gameObject.SetActive(false);
-        isObserve = true;
     }
+
+    //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+    void playerRising()
+    {
+        noahUpDownObject = PlayerScripts.playerscripts.currentObject;
+        ObjData noahUpDownData = noahUpDownObject.GetComponent<ObjData>();
+        risePosition = noahUpDownObject.transform.localPosition;
+        TurnOffInteractionButton();
+
+        if (noahUpDownData.IsUpDown == false)
+        {
+            noahUpDownData.IsUpDown = true;
+            if (playerAgent.enabled)
+            {
+                playerAgent.updatePosition = false;
+                playerAgent.updateRotation = false;
+                playerAgent.isStopped = true;
+            }
+            Invoke("ChangeRiseTrue", 0.5f);
+            Invoke("ChangeRise2True", 0.5f);
+            Invoke("ChangeRise3True", 0.5f);
+            Invoke("ChangeRise4True", 0.5f);
+            Invoke("ChangeRise5True", 0.5f);
+            Invoke("noahJump", 1f);
+            Invoke("ChangeRiseFalse", 2);
+
+            playerAgent.isStopped = false;
+        }
+    }
+
+    void ChangeRiseTrue()
+    {
+        noahAnim.SetBool("IsRising", true);
+
+    }
+    void ChangeRise2True()
+    {
+        noahAnim.SetBool("IsRising2", true);
+    }
+    void ChangeRise3True()
+    {
+        noahAnim.SetBool("IsRising3", true);
+    }
+    void ChangeRise4True()
+    {
+        noahAnim.SetBool("IsRising4", true);
+    }
+    void ChangeRise5True()
+    {
+        noahAnim.SetBool("IsRising5", true);
+    }
+
+    void ChangeRiseFalse()
+    {
+        noahAnim.SetBool("IsRising", false);
+    }
+    void noahJump()
+    {
+        noahPlayer.transform.position = new Vector3(risePosition.x-1f, 34.69f, risePosition.z);
+    }
+
 }

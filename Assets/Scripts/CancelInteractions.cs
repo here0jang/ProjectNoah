@@ -11,34 +11,50 @@ public class CancelInteractions : MonoBehaviour
 
     public GameObject noahPosition;
     public GameObject moveableGroup;
-    private GameObject climbObject, biteObject, pushObject, noahNovepushobject;
+    private GameObject upDownObject, biteObject, pushObject, noahNovepushobject, observeObject;
 
     void Update()
     {
         /* 나중에 상호작용 여러 개 취소 할 때 취소 순서도 넣을 것. ex. 오르기+물기 -> 1) 내려와서 2) 내려놓기 */
         if (Input.GetMouseButtonDown(1))
         {
+            biteObject = BiteDestroyButtonController.biteDestroyButtonController.noahBiteObject;
+            upDownObject = InteractionButtonController.interactionButtonController.noahUpDownObject;
+            observeObject = InteractionButtonController.interactionButtonController.noahObserveObject;
+
+            
+            
+            
             /* 관찰하기 취소 */
-            if (InteractionButtonController.interactionButtonController.isObserve)
+            if (observeObject!=null)
             {
-                CameraController.cameraController.CancelObserve();
-                InteractionButtonController.interactionButtonController.isObserve = false;
+                ObjData cancelObserveData = observeObject.GetComponent<ObjData>();
+
+                if (cancelObserveData.IsObserve)
+                {
+                    CameraController.cameraController.CancelObserve();
+                    cancelObserveData.IsObserve = false;
+                }
             }
 
             /* 오르기 취소 */
-            if (InteractionButtonController.interactionButtonController.isGround == false)
+            if (upDownObject!=null)
             {
-                climbObject = InteractionButtonController.interactionButtonController.noahClimbObject;
-                if (Agent.enabled)
+                ObjData cancelUpDownData = upDownObject.GetComponent<ObjData>();
+                if (cancelUpDownData.IsUpDown)
                 {
-                    noahPosition.transform.position = new Vector3(climbObject.transform.localPosition.x, 33.78f, climbObject.transform.localPosition.z);
-                    Agent.updatePosition = true;
-                    Agent.updateRotation = true;
-                    Agent.isStopped = false;
+                    if (Agent.enabled)
+                    {
+                        noahPosition.transform.position = new Vector3(upDownObject.transform.localPosition.x, 33.78f, upDownObject.transform.localPosition.z);
+                        Agent.updatePosition = true;
+                        Agent.updateRotation = true;
+                        Agent.isStopped = false;
+                    }
+                    cancelUpDownData.IsUpDown = false;
                 }
-                InteractionButtonController.interactionButtonController.isGround = true;
             }
 
+        
             /* 밀기 취소 */
             if (InteractionButtonController.ISPUSH)
             {
@@ -63,15 +79,16 @@ public class CancelInteractions : MonoBehaviour
             }
 
             /* 물기 취소 */
-            if (BiteDestroyButtonController.biteDestroyButtonController.isBite)
+            if (biteObject != null)
             {
-                biteObject = BiteDestroyButtonController.biteDestroyButtonController.noahBiteObject;
-                if (biteObject != null)
+                ObjData cancelBiteData = biteObject.GetComponent<ObjData>();
+                if (cancelBiteData.IsBite)
                 {
                     playerAnimation.SetBool("IsPutDowning", true);
                     Invoke("CancelBitingAnimation", 1f);
                     Invoke("PutDownObject", 0.5f);
-                    BiteDestroyButtonController.biteDestroyButtonController.isBite = false;
+                    cancelBiteData.IsBite = false;
+
                 }
             }
         }

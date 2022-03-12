@@ -44,15 +44,18 @@ public class Interactable : MonoBehaviour
         currentPushOrPressButton = PlayerScripts.playerscripts.ObjectpushOrpressbutton;
         currentPushOrPressButton.transform.gameObject.SetActive(true);
 
+
+
         /* 수정 필요 */
-        if(PlayerScripts.playerscripts.IsDoorClicked && BiteDestroyButtonController.biteDestroyButtonController.isBite)
-        {
-            currentCenterButton = insertButton;
-        }
-        else
-        {
-            currentCenterButton = PlayerScripts.playerscripts.ObjectCenterButton;
-        }        
+        //if(PlayerScripts.playerscripts.IsDoorClicked && BiteDestroyButtonController.biteDestroyButtonController.isBite)
+        //{
+        //    currentCenterButton = insertButton;
+        //}
+        //else
+        //{
+        //    currentCenterButton = PlayerScripts.playerscripts.ObjectCenterButton;
+        //} 
+        currentCenterButton = PlayerScripts.playerscripts.ObjectCenterButton;
         currentCenterButton.transform.gameObject.SetActive(true);
 
         // 3) npc 와 상호작용함

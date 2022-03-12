@@ -6,13 +6,25 @@ public class CameraController : MonoBehaviour
 {
     public static CameraController cameraController { get; private set; }
 
-    private Transform camObserveView, camObserveBoxView;
+    //private Transform camObserveView, camObserveBoxView;
     [SerializeField] Transform mainView;
-    public GameObject cockpitButtonDescription;
+
+
+
+    public GameObject objectExtraDescription;
+
+
+
+    public Transform currentView;
 
     [SerializeField] GameObject noah;
 
     public GameObject aiPanel, ui;
+
+    private GameObject currentObserveObject;
+
+    private Transform observeView;
+    private Transform observePlusView;
 
     private void Awake()
     {
@@ -21,21 +33,29 @@ public class CameraController : MonoBehaviour
 
     public void ObserveButtonClick()
     {
-        camObserveView = PlayerScripts.playerscripts.PlayerobserveView;
-        camObserveBoxView = PlayerScripts.playerscripts.PlayerobserveBoxView;
+        currentObserveObject = PlayerScripts.playerscripts.currentObject;
+        ObjData currentObserveObjectData = currentObserveObject.GetComponent<ObjData>();
+
+        //camObserveView = PlayerScripts.playerscripts.PlayerobserveView;
+        //camObserveBoxView = PlayerScripts.playerscripts.PlayerobserveBoxView;
 
         aiPanel.SetActive(false);
         ui.SetActive(false);
+        //if()
+        //{
+        //    currentView = currentObserveObjectData.ObserveView;
+        //}
+        //else
+        //{
 
-        if (InteractionButtonController.interactionButtonController.isGround == true)
+        //}
+        if(currentObserveObjectData.IsExtraDescriptionActive)
         {
-            ChangeView(camObserveView);
+            objectExtraDescription = currentObserveObjectData.exterDescription;
+            objectExtraDescription.SetActive(true);
         }
-        else
-        {
-            ChangeView(camObserveBoxView);
-            cockpitButtonDescription.SetActive(true);
-        }
+        ChangeView(currentView);
+
     }
 
     public void CancelObserve()
@@ -44,7 +64,7 @@ public class CameraController : MonoBehaviour
         ui.SetActive(true);
         ChangeView(mainView);
         noah.transform.gameObject.SetActive(true);
-        cockpitButtonDescription.SetActive(false);
+        objectExtraDescription.SetActive(false);
     }
 
     /* 전환 효과 없는 카메라 전환 메서드 */
