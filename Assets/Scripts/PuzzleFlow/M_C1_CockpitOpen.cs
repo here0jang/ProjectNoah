@@ -8,6 +8,7 @@ public class M_C1_CockpitOpen : MonoBehaviour
     // 새 플로우차트를 만들 때마다 필수로 만들어야 한다. 
     // 이름 짓기 규칙 : nowObject + 플로우차트 넘버링
     private GameObject nowObject_M_C1;
+    private GameObject nowObject_M_C2;
 
 
     /* 이번 플로우차트에서 저장되는 설정들 */
