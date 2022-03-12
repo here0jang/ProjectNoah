@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 2309096}
   - component: {fileID: 556527193}
   - component: {fileID: 556527190}
-  - component: {fileID: 556527192}
   m_Layer: 0
   m_Name: SM_Env_Door_01
   m_TagString: Untagged
@@ -111,22 +110,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distancePosition: 1
   actionss:
-  - {fileID: 556527192}
+  - {fileID: 0}
   barkButton: {fileID: 0}
-  pushButton: {fileID: 0}
-  observeButton: {fileID: 0}
   sniffButton: {fileID: 0}
+  insertButton: {fileID: 0}
   biteButton: {fileID: 0}
---- !u!114 &556527192
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 144416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b7510275c7980d4bb4ba661bb532681, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneTarget: Work
