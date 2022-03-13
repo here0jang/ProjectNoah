@@ -27,51 +27,51 @@ public class AnimationStateController : MonoBehaviour
     {
 
 
-        bool IsWalking=animator.GetBool(IsWalkingHash);
-        bool IsJumping=animator.GetBool(IsJumpingHash);
-        bool IsEating=animator.GetBool(IsEatingHash);
-        //bool forwardPressed = Input.GetKey("w");
-        float VerticalPressed = Input.GetAxis("Vertical");
-        float HorizontalPressed = Input.GetAxis("Horizontal");
+        //bool IsWalking=animator.GetBool(IsWalkingHash);
+        //bool IsJumping=animator.GetBool(IsJumpingHash);
+        //bool IsEating=animator.GetBool(IsEatingHash);
+        ////bool forwardPressed = Input.GetKey("w");
+        //float VerticalPressed = Input.GetAxis("Vertical");
+        //float HorizontalPressed = Input.GetAxis("Horizontal");
 
-        // if player presses w key
-        if(!IsWalking&&(VerticalPressed!=0||HorizontalPressed!=0))
-        {
-            // then set the isWalking boolean to be tr
-            animator.SetBool(IsWalkingHash, true);
-        }
+        //// if player presses w key
+        //if(!IsWalking&&(VerticalPressed!=0||HorizontalPressed!=0))
+        //{
+        //    // then set the isWalking boolean to be tr
+        //    animator.SetBool(IsWalkingHash, true);
+        //}
 
-        // if player is not pressing
-        if(IsWalking&&(VerticalPressed==0&&HorizontalPressed==0))
-        {
-            animator.SetBool(IsWalkingHash, false);
-        }
+        //// if player is not pressing
+        //if(IsWalking&&(VerticalPressed==0&&HorizontalPressed==0))
+        //{
+        //    animator.SetBool(IsWalkingHash, false);
+        //}
 
-        if(!IsJumping&&(Input.GetKeyDown("j")))
-        {
+        //if(!IsJumping&&(Input.GetKeyDown("j")))
+        //{
 
-            animator.SetBool(IsJumpingHash, true);
+        //    animator.SetBool(IsJumpingHash, true);
           
-        }
-        if(IsJumping&&(Input.GetKeyDown("j")))
-        {
+        //}
+        //if(IsJumping&&(Input.GetKeyDown("j")))
+        //{
 
-            animator.SetBool(IsJumpingHash, false);
+        //    animator.SetBool(IsJumpingHash, false);
            
-        }
+        //}
 
-        if(!IsEating&&(Input.GetKeyDown("n")))
-        {
+        //if(!IsEating&&(Input.GetKeyDown("n")))
+        //{
 
-            animator.SetBool(IsEatingHash, true);
+        //    animator.SetBool(IsEatingHash, true);
           
-        }
-        if(IsJumping&&(Input.GetKeyDown("n")))
-        {
+        //}
+        //if(IsJumping&&(Input.GetKeyDown("n")))
+        //{
 
-            animator.SetBool(IsEatingHash, false);
+        //    animator.SetBool(IsEatingHash, false);
            
-        }
+        //}
      
     }
 }

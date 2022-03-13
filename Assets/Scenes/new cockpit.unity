@@ -546,7 +546,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smellText: 
   centerButton: {fileID: 365641762}
+  centerPlusButton: {fileID: 0}
   pushOrPressButton: {fileID: 365641753}
+  IsPushOrPressActive: 0
+  IsBiteActive: 0
   observeView: {fileID: 0}
   observePlusView: {fileID: 0}
   IsBark: 0
@@ -558,6 +561,7 @@ MonoBehaviour:
   IsObserve: 0
   IsObservePlus: 0
   IsExtraDescriptionActive: 0
+  IsCenterButtonChanged: 0
   exterDescription: {fileID: 0}
 --- !u!114 &120418752
 MonoBehaviour:
@@ -573,7 +577,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smellText: Smells like new computer
   centerButton: {fileID: 365641756}
+  centerPlusButton: {fileID: 0}
   pushOrPressButton: {fileID: 365641753}
+  IsPushOrPressActive: 0
+  IsBiteActive: 0
   observeView: {fileID: 0}
   observePlusView: {fileID: 0}
   IsBark: 0
@@ -585,6 +592,7 @@ MonoBehaviour:
   IsObserve: 0
   IsObservePlus: 0
   IsExtraDescriptionActive: 0
+  IsCenterButtonChanged: 0
   exterDescription: {fileID: 0}
 --- !u!65 &120418753
 BoxCollider:
@@ -809,6 +817,24 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 9032298445570832132, guid: dacf54edbc6a84648b1fe13a511a43c3, type: 3}
   m_PrefabInstance: {fileID: 1068952794}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &169238033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169238025}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0.23529409, g: 0.90588236, b: 0.28850126, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &177136929
 GameObject:
   m_ObjectHideFlags: 0
@@ -822,6 +848,7 @@ GameObject:
   - component: {fileID: 177136932}
   - component: {fileID: 177136931}
   - component: {fileID: 177136934}
+  - component: {fileID: 177136935}
   m_Layer: 7
   m_Name: Console_Left_ResetButton
   m_TagString: Untagged
@@ -876,7 +903,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smellText: 
   centerButton: {fileID: 365641756}
+  centerPlusButton: {fileID: 0}
   pushOrPressButton: {fileID: 365641753}
+  IsPushOrPressActive: 0
+  IsBiteActive: 0
   observeView: {fileID: 0}
   observePlusView: {fileID: 0}
   IsBark: 0
@@ -888,6 +918,7 @@ MonoBehaviour:
   IsObserve: 0
   IsObservePlus: 0
   IsExtraDescriptionActive: 0
+  IsCenterButtonChanged: 0
   exterDescription: {fileID: 0}
 --- !u!65 &177136933
 BoxCollider:
@@ -921,6 +952,24 @@ MonoBehaviour:
   sniffButton: {fileID: 365641758}
   insertButton: {fileID: 0}
   biteButton: {fileID: 365641757}
+--- !u!114 &177136935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177136929}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0.23529409, g: 0.90588236, b: 0.28850126, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &179251528
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1298,11 +1347,35 @@ PrefabInstance:
     - target: {fileID: 416977378, guid: 0b9650a00c67ad84cb0f2fa7bb0b1da4, type: 3}
       propertyPath: noahBiteObject
       value: 
-      objectReference: {fileID: 1068952797}
+      objectReference: {fileID: 0}
     - target: {fileID: 416977378, guid: 0b9650a00c67ad84cb0f2fa7bb0b1da4, type: 3}
       propertyPath: playerAnimation
       value: 
       objectReference: {fileID: 1451688032}
+    - target: {fileID: 1332645153, guid: 0b9650a00c67ad84cb0f2fa7bb0b1da4, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332645153, guid: 0b9650a00c67ad84cb0f2fa7bb0b1da4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332645153, guid: 0b9650a00c67ad84cb0f2fa7bb0b1da4, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332645153, guid: 0b9650a00c67ad84cb0f2fa7bb0b1da4, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332645153, guid: 0b9650a00c67ad84cb0f2fa7bb0b1da4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -55
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332645153, guid: 0b9650a00c67ad84cb0f2fa7bb0b1da4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -53
+      objectReference: {fileID: 0}
     - target: {fileID: 565886689723836008, guid: 0b9650a00c67ad84cb0f2fa7bb0b1da4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1590,12 +1663,6 @@ PrefabInstance:
     - target: {fileID: 6406518291468497614, guid: 0b9650a00c67ad84cb0f2fa7bb0b1da4, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6518814273575207324, guid: 0b9650a00c67ad84cb0f2fa7bb0b1da4, type: 3}
-      propertyPath: m_text
-      value: '60fps
-
-        Camera_1; control_room'
       objectReference: {fileID: 0}
     - target: {fileID: 6855707438144792615, guid: 0b9650a00c67ad84cb0f2fa7bb0b1da4, type: 3}
       propertyPath: m_Pivot.x
@@ -4577,6 +4644,10 @@ PrefabInstance:
       propertyPath: insertButton
       value: 
       objectReference: {fileID: 365641752}
+    - target: {fileID: 433270856078974270, guid: dacf54edbc6a84648b1fe13a511a43c3, type: 3}
+      propertyPath: distancePosition
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2651352401969364946, guid: dacf54edbc6a84648b1fe13a511a43c3, type: 3}
       propertyPath: centerButton
       value: 
@@ -4585,6 +4656,10 @@ PrefabInstance:
       propertyPath: pushOrPressButton
       value: 
       objectReference: {fileID: 365641745}
+    - target: {fileID: 2651352401969364946, guid: dacf54edbc6a84648b1fe13a511a43c3, type: 3}
+      propertyPath: IsPushOrPressActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4835016166140723761, guid: dacf54edbc6a84648b1fe13a511a43c3, type: 3}
       propertyPath: m_Name
       value: MovableObjects
@@ -4633,6 +4708,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7474894756349361048, guid: dacf54edbc6a84648b1fe13a511a43c3, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8192174013510878098, guid: dacf54edbc6a84648b1fe13a511a43c3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8192174013510878098, guid: dacf54edbc6a84648b1fe13a511a43c3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8192174013510878098, guid: dacf54edbc6a84648b1fe13a511a43c3, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8192174013510878098, guid: dacf54edbc6a84648b1fe13a511a43c3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.52
+      objectReference: {fileID: 0}
     - target: {fileID: 8519345538215326029, guid: dacf54edbc6a84648b1fe13a511a43c3, type: 3}
       propertyPath: barkButton
       value: 
@@ -4670,13 +4765,37 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 365641752}
     - target: {fileID: 8519345538468102396, guid: dacf54edbc6a84648b1fe13a511a43c3, type: 3}
+      propertyPath: IsBite
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519345538468102396, guid: dacf54edbc6a84648b1fe13a511a43c3, type: 3}
+      propertyPath: IsBiteActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519345538468102396, guid: dacf54edbc6a84648b1fe13a511a43c3, type: 3}
       propertyPath: centerButton
       value: 
       objectReference: {fileID: 365641756}
     - target: {fileID: 8519345538468102396, guid: dacf54edbc6a84648b1fe13a511a43c3, type: 3}
       propertyPath: pushOrPressButton
       value: 
-      objectReference: {fileID: 365641745}
+      objectReference: {fileID: 365641753}
+    - target: {fileID: 8519345538468102398, guid: dacf54edbc6a84648b1fe13a511a43c3, type: 3}
+      propertyPath: m_Size.x
+      value: 5.001816
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519345538468102398, guid: dacf54edbc6a84648b1fe13a511a43c3, type: 3}
+      propertyPath: m_Size.y
+      value: 3.5710602
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519345538468102398, guid: dacf54edbc6a84648b1fe13a511a43c3, type: 3}
+      propertyPath: m_Center.x
+      value: 0.19747162
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519345538468102398, guid: dacf54edbc6a84648b1fe13a511a43c3, type: 3}
+      propertyPath: m_Center.y
+      value: 1.0304489
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dacf54edbc6a84648b1fe13a511a43c3, type: 3}
 --- !u!1 &1068952795 stripped
@@ -4694,6 +4813,24 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8861855297580357928, guid: dacf54edbc6a84648b1fe13a511a43c3, type: 3}
   m_PrefabInstance: {fileID: 1068952794}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1068952811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1068952797}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0.23529409, g: 0.90588236, b: 0.28850126, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &1073637637
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6517,6 +6654,29 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 407744, guid: 9d58753be3de52144b11334649da54a6, type: 3}
   m_PrefabInstance: {fileID: 392656675}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1440882412 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 132716, guid: 12ae7a541c0e0904aa63a6390e861b22, type: 3}
+  m_PrefabInstance: {fileID: 772349804}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1440882415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440882412}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0.23529409, g: 0.90588236, b: 0.28850126, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &1451688028
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6524,6 +6684,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 986161350, guid: c6b43faf263d7e34cbe187faa257495c, type: 3}
+      propertyPath: m_Size.z
+      value: 2.5102859
+      objectReference: {fileID: 0}
+    - target: {fileID: 986161350, guid: c6b43faf263d7e34cbe187faa257495c, type: 3}
+      propertyPath: m_Center.z
+      value: -1.1616676
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719228970, guid: c6b43faf263d7e34cbe187faa257495c, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6271890255095929715, guid: c6b43faf263d7e34cbe187faa257495c, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -6583,6 +6755,22 @@ PrefabInstance:
     - target: {fileID: 6271890255095929718, guid: c6b43faf263d7e34cbe187faa257495c, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271890256200668739, guid: c6b43faf263d7e34cbe187faa257495c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271890256200668739, guid: c6b43faf263d7e34cbe187faa257495c, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271890256200668739, guid: c6b43faf263d7e34cbe187faa257495c, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271890256200668739, guid: c6b43faf263d7e34cbe187faa257495c, type: 3}
+      propertyPath: m_SkinnedMotionVectors
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8118700057688735759, guid: c6b43faf263d7e34cbe187faa257495c, type: 3}
       propertyPath: obj
@@ -8034,6 +8222,10 @@ PrefabInstance:
     - target: {fileID: 1654680055073099155, guid: 1cbc965ec14977746b7cd75b439d103c, type: 3}
       propertyPath: m_Name
       value: DialogManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1654680055073099155, guid: 1cbc965ec14977746b7cd75b439d103c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1654680055073099157, guid: 1cbc965ec14977746b7cd75b439d103c, type: 3}
       propertyPath: m_RootOrder
@@ -9565,7 +9757,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smellText: Smells like new computer
   centerButton: {fileID: 365641755}
+  centerPlusButton: {fileID: 0}
   pushOrPressButton: {fileID: 365641753}
+  IsPushOrPressActive: 0
+  IsBiteActive: 0
   observeView: {fileID: 2076137372}
   observePlusView: {fileID: 230261501}
   IsBark: 0
@@ -9577,6 +9772,7 @@ MonoBehaviour:
   IsObserve: 0
   IsObservePlus: 0
   IsExtraDescriptionActive: 0
+  IsCenterButtonChanged: 0
   exterDescription: {fileID: 2003996785}
 --- !u!114 &2094456943
 MonoBehaviour:
@@ -9670,6 +9866,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.018948311, y: 0.015464706, z: 0.0131634455}
   m_Center: {x: 0.0246326, y: 0.007732353, z: 0.015936995}
+--- !u!114 &2094456950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2094456941}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0.23529409, g: 0.90588236, b: 0.28850126, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &2099261497
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9823,7 +10037,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smellText: Steel
   centerButton: {fileID: 365641756}
-  pushOrPressButton: {fileID: 365641745}
+  centerPlusButton: {fileID: 0}
+  pushOrPressButton: {fileID: 365641753}
+  IsPushOrPressActive: 0
+  IsBiteActive: 0
   observeView: {fileID: 0}
   observePlusView: {fileID: 0}
   IsBark: 0
@@ -9835,6 +10052,7 @@ MonoBehaviour:
   IsObserve: 0
   IsObservePlus: 0
   IsExtraDescriptionActive: 0
+  IsCenterButtonChanged: 0
   exterDescription: {fileID: 0}
 --- !u!114 &2099261501
 MonoBehaviour:
@@ -9871,6 +10089,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2099261507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099261498}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0.23529409, g: 0.90588236, b: 0.28850126, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &2120291140
 GameObject:
   m_ObjectHideFlags: 0
@@ -9905,6 +10141,7 @@ MonoBehaviour:
   envirPipe_M_C1: {fileID: 1068952797}
   consoleLeftAIResetButton_M_C1: {fileID: 177136929}
   cockpitDoor_M_C1: {fileID: 2099261498}
+  noahAnim_M_C1: {fileID: 1451688032}
 --- !u!4 &2120291142
 Transform:
   m_ObjectHideFlags: 0

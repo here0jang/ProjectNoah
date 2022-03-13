@@ -51,13 +51,11 @@ public class InteractionButtonController : MonoBehaviour
 
     public GameObject InsertArea, DoorLocked, DoorUnLocked;
 
-    void Start()
+    private void Start()
     {
-        if (SceneManager.GetActiveScene().name == "new cockpit")
-            StartCoroutine(NoahWakeUp());
-        else
-            StartCoroutine(NoahWalking());
+        StartCoroutine("NoahWalking");
     }
+
 
     void Awake()
     {
@@ -74,15 +72,6 @@ public class InteractionButtonController : MonoBehaviour
         pressButton.onClick.AddListener(playerPress);
     }
 
-    IEnumerator NoahWakeUp()
-    {
-        yield return new WaitForSeconds(2f);
-        noahAnim.SetBool("IsWaking", true);
-        yield return new WaitForSeconds(1f);
-        noahAnim.SetBool("IsWaking2", true);
-        yield return new WaitForSeconds(1f);
-        noahAnim.SetBool("IsSleeping", false);
-    }
 
     IEnumerator NoahWalking()
     {
@@ -112,6 +101,7 @@ public class InteractionButtonController : MonoBehaviour
     void playerPush()
     {
         noahPushObject = PlayerScripts.playerscripts.currentObject;
+
         noahpushobject = noahPushObject;
         pushObjectName = noahPushObject.name;
         //PlayerManager.playermanager.ISPUSH = true;
@@ -119,12 +109,17 @@ public class InteractionButtonController : MonoBehaviour
         ISPUSH = true;
         TurnOffInteractionButton();
         Invoke("ChangePushTrue", 0.5f);
+        Invoke("ChangePush2True", 0.5f);
         noahPushObject.transform.parent = noah.transform;
     }
 
     void ChangePushTrue()
     {
         noahAnim.SetBool("IsPushing", true);
+    }
+    void ChangePush2True()
+    {
+        noahAnim.SetBool("IsPushing2", true);
     }
 
     //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
@@ -133,28 +128,32 @@ public class InteractionButtonController : MonoBehaviour
     {
         noahPushOrPressObject = PlayerScripts.playerscripts.currentObject;
         ObjData noahPushOrPressData = noahPushOrPressObject.GetComponent<ObjData>();
-        noahPushOrPressData.IsPushOrPress = true;
-
         TurnOffInteractionButton();
-
-        CameraController.cameraController.CancelObserve();
-
-        Invoke("ChangePressTrue", 0.5f);
-        Invoke("ChangePressFalse", 2f);
-
-
-
-        if (noahPushObject.name == "Console_Left_ResetButton")
+        if (noahPushOrPressData.ISPushOrPressActive)
         {
-            DialogManager.dialogManager.ResetSystem();
+            noahPushOrPressData.IsPushOrPress = true;
+
+            
+
+            Invoke("ChangePressTrue", 0.5f);
+            Invoke("ChangePressFalse", 2f);
         }
-        if (noahPushObject.name == "Console_Left_UnLockButton")
+        else
         {
-            // ���� ���ȴ� ������
-            DoorController.doorController.isDoorOpen = true;
-            //Invoke("IsDoorOpenTrue", 2.5f);
-            Invoke("IsDoorOpenFalse", 1f);
+            Invoke("JustPlayPushAnimationTrue", 0.5f);
+            Invoke("JustPlayPushAnimationFalse", 2f);
         }
+
+
+
+
+        //if (noahPushObject.name == "Console_Left_UnLockButton")
+        //{
+        //    // ���� ���ȴ� ������
+        //    DoorController.doorController.isDoorOpen = true;
+        //    //Invoke("IsDoorOpenTrue", 2.5f);
+        //    Invoke("IsDoorOpenFalse", 1f);
+        //}
     }
     void ChangePressTrue()
     {
@@ -165,15 +164,25 @@ public class InteractionButtonController : MonoBehaviour
         noahAnim.SetBool("IsPressing", false);
     }
 
+    void JustPlayPushAnimationTrue()
+    {
+        noahAnim.SetBool("IsNonePushing", true);
+    }
 
-    void IsDoorOpentTrue()
+    void JustPlayPushAnimationFalse()
     {
-        DoorController.doorController.isDoorOpen = true;
+        noahAnim.SetBool("IsNonePushing", false);
     }
-    void IsDoorOpenFalse()
-    {
-        DoorController.doorController.isDoorOpen = false;
-    }
+
+
+    //void IsDoorOpentTrue()
+    //{
+    //    DoorController.doorController.isDoorOpen = true;
+    //}
+    //void IsDoorOpenFalse()
+    //{
+    //    DoorController.doorController.isDoorOpen = false;
+    //}
 
     //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
@@ -316,13 +325,20 @@ public class InteractionButtonController : MonoBehaviour
 
         TurnOffInteractionButton();
         Invoke("ChangeObserveTrue", 0.5f);
-        Invoke("ChangeObserveFalse", 2);
+        Invoke("ChangeObserve2True", 1f);
+
+        //Invoke("ChangeObserveFalse", 2);
         Invoke("ChangeCameraView", 2);
     }
 
     void ChangeObserveTrue()
     {
         noahAnim.SetBool("IsObserving", true);
+    }
+
+    void ChangeObserve2True()
+    {
+        noahAnim.SetBool("IsObserving2", true);
     }
 
     void ChangeObserveFalse()
@@ -333,7 +349,7 @@ public class InteractionButtonController : MonoBehaviour
     void ChangeCameraView()
     {
         CameraController.cameraController.ObserveButtonClick();
-        noah.transform.gameObject.SetActive(false);
+        //noah.transform.gameObject.SetActive(false);
     }
 
     //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&

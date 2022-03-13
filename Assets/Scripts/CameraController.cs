@@ -62,9 +62,9 @@ public class CameraController : MonoBehaviour
     {
         aiPanel.SetActive(true);
         ui.SetActive(true);
-        ChangeView(mainView);
         noah.transform.gameObject.SetActive(true);
         objectExtraDescription.SetActive(false);
+        ChangeView(mainView);
     }
 
     /* 전환 효과 없는 카메라 전환 메서드 */

@@ -12,6 +12,24 @@ public class Interactable : MonoBehaviour
     public GameObject biteButton;
     private Button currentCenterButton, currentPushOrPressButton;
 
+    private GameObject nowInteractObject;
+
+    Outline outline;
+    private void Start()
+    {
+        outline = GetComponent<Outline>();
+    }
+
+    public void OnMouseOver()
+    {
+        outline.enabled = true;
+    }
+
+    public void OnMouseExit()
+    {
+        outline.enabled = false;
+    }
+
     /* NPC 의 위치를 반환하는 메서드 */
     public Vector3 InteractPosition()
     {
@@ -44,19 +62,22 @@ public class Interactable : MonoBehaviour
         currentPushOrPressButton = PlayerScripts.playerscripts.ObjectpushOrpressbutton;
         currentPushOrPressButton.transform.gameObject.SetActive(true);
 
+        nowInteractObject = PlayerScripts.playerscripts.currentObject;
+        if(nowInteractObject!=null)
+        {
+            ObjData nowInteractData = nowInteractObject.GetComponent<ObjData>();
 
+            if (nowInteractData.IsCenterButtonChanged)
+            {
+                currentCenterButton = PlayerScripts.playerscripts.ObjectCenterPlusButton;
+            }
+            else
+            {
+                currentCenterButton = PlayerScripts.playerscripts.ObjectCenterButton;
+            }
+            currentCenterButton.transform.gameObject.SetActive(true);
+        }
 
-        /* 수정 필요 */
-        //if(PlayerScripts.playerscripts.IsDoorClicked && BiteDestroyButtonController.biteDestroyButtonController.isBite)
-        //{
-        //    currentCenterButton = insertButton;
-        //}
-        //else
-        //{
-        //    currentCenterButton = PlayerScripts.playerscripts.ObjectCenterButton;
-        //} 
-        currentCenterButton = PlayerScripts.playerscripts.ObjectCenterButton;
-        currentCenterButton.transform.gameObject.SetActive(true);
 
         // 3) npc 와 상호작용함
         //for (int i=0; i < actionss.length; i++)

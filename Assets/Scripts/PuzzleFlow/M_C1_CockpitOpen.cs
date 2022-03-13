@@ -8,7 +8,6 @@ public class M_C1_CockpitOpen : MonoBehaviour
     // 새 플로우차트를 만들 때마다 필수로 만들어야 한다. 
     // 이름 짓기 규칙 : nowObject + 플로우차트 넘버링
     private GameObject nowObject_M_C1;
-    private GameObject nowObject_M_C2;
 
     /* 이번 플로우차트에서 저장되는 설정들 */
     // 이름 짓기 규칙 : 앞에 Is, Has, Can, Should 중 하나를 붙이고 한 단어의 첫 글자는 대문자로
@@ -27,35 +26,56 @@ public class M_C1_CockpitOpen : MonoBehaviour
     // 플로우차트 하나를 크게 n 개로 나눌 수 있으면 오브젝트들도 엔터로 구분한다.
     public GameObject cockpitDoor_M_C1;
 
+    public Animator noahAnim_M_C1;
+
     private void Start()
     {
         // 플로우차트 처음 시작 때 넣고 싶은 것들을 넣는다. 
         // 잠들어 있던 노아가 깨어난다 && 화면이 밝아진다
+        //StartCoroutine(NoahWakeUp());
+        StartCoroutine("ResetAI_OpenCockpitDoor");
+
     }
 
-    private void Update()
+    IEnumerator NoahWakeUp()
     {
-        // 실시간으로 현재 상호작용 중인 오브젝트의 정보를 받아온다. 필수로 넣어야 한다. 
-        nowObject_M_C1 = PlayerScripts.playerscripts.currentObject;
+        yield return new WaitForSeconds(2f);
+        noahAnim_M_C1.SetBool("IsWaking", true);
+        yield return new WaitForSeconds(1f);
+        noahAnim_M_C1.SetBool("IsWaking2", true);
+        yield return new WaitForSeconds(1f);
+        noahAnim_M_C1.SetBool("IsSleeping", false);
+    }
 
 
-        if (nowObject_M_C1 != null) // 현재 상호작용 중인 오브젝트가 있는지 한번 확인, 필수로 넣어야 오류가 안생긴다. 
+    IEnumerator ResetAI_OpenCockpitDoor()
+    {
+        // 이 플로우차트는 크게 2 퍼즐로 나눌 수 있다. 
+        // 1) <조종석> 에서 AI 활성화시키기
+        // 2) <조종실 문> 을 열기
+
+        // 1)AI 가 먼저 활성화 되어야 2) 조종실 문을 열 수 있으므로 
+
+        while(true)
         {
-            // 이 플로우차트는 크게 2 퍼즐로 나눌 수 있다. 
-            // 1) <조종석> 에서 AI 활성화시키기
-            // 2) <조종실 문> 을 열기
-
-            // 1)AI 가 먼저 활성화 되어야 2) 조종실 문을 열 수 있으므로 
             if (IsAI) // if 문에서 현재 AI 가 활성화되었는지 확인하고 
             {
-                OpenCockpitDoor(); // 활성화 되었으면 조종실 문 여는 함수를 실행시킨다. 
+                OpenCockpitDoor(); // 활성화 되었으면 조종실 문 여는 함수를 실행시킨다.
             }
             else // AI 가 활성화되기 전이면
             {
                 ResetAI(); // 계속해서 AI 활성화 시키는 함수를 실행시킨다. 
             }
+            yield return null;
         }
+
+        
+
+
     }
+
+    
+
 
     /* 플로우차트를 크게 n개로 나눌 수 있으면 나눠서 함수를 만든다. */
     // 1) <조종석> 의 AI 를 활성화 시키는 퍼즐
@@ -77,6 +97,7 @@ public class M_C1_CockpitOpen : MonoBehaviour
         //첫 번쨰 if 문에 넣었다. */
         if (consoleLeftAIResetButtoneData_M_C1.IsPushOrPress)
         {
+            CameraController.cameraController.CancelObserve();
             DialogManager.dialogManager.ResetSystem(); // AI 1 번째 대사 묶음 출력
             IsAI = true; // 앞으로 게임이 꺼져도 AI 가 계속 활성화된다. 
 
@@ -111,7 +132,17 @@ public class M_C1_CockpitOpen : MonoBehaviour
         }
         if(envirPipeData_M_C1.IsBite)
         {
+            cockpitDoorData_M_C1.IsCenterButtonChanged = true;
             // 가운데 끼우기 버튼 활성화
+        }
+        if(envirPipeData_M_C1.IsBite==false)
+        {
+            cockpitDoorData_M_C1.IsCenterButtonChanged = false;
+        }
+
+        if(PlayerScripts.playerscripts.currentObject.name == "DoorLocked")
+        {
+            DialogManager.dialogManager.DoorLock();
         }
     }
 }
