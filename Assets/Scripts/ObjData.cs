@@ -42,6 +42,7 @@ public class ObjData : MonoBehaviour
     public bool IsPushOrPress = false;
     public bool IsSniff = false;
     public bool IsBite = false;
+    public bool IsDestroy = false;
 
     public bool IsUpDown = false;
     public bool IsInsert = false;

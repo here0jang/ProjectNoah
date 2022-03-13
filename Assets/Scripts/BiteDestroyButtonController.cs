@@ -28,6 +28,7 @@ public class BiteDestroyButtonController : MonoBehaviour, IPointerEnterHandler, 
     public Sprite biteButtonImage, biteButtonMouseOver, biteButtonClicked, destroyButtonMouseOver;
 
     public GameObject noahBiteObject;
+    public GameObject noahDestroyObject;
     public GameObject myMouth;
 
     void Start()
@@ -38,6 +39,10 @@ public class BiteDestroyButtonController : MonoBehaviour, IPointerEnterHandler, 
 
     void Update()
     {
+
+
+
+
         if (isPointerDown)
         {
             pointerDownTimer += Time.deltaTime;
@@ -47,6 +52,7 @@ public class BiteDestroyButtonController : MonoBehaviour, IPointerEnterHandler, 
 
                 Invoke("ChangeDestroyTrue", 1f);
                 InteractionButtonController.interactionButtonController.TurnOffInteractionButton();
+
                 Invoke("ChangeDestroyFalse", 3f);
 
                 Reset();
@@ -123,6 +129,16 @@ public class BiteDestroyButtonController : MonoBehaviour, IPointerEnterHandler, 
     void ChangeBiteToDestroyButton()
     {
         biteDestroyButton.GetComponent<Image>().sprite = destroyButtonMouseOver;
+
+        noahDestroyObject = PlayerScripts.playerscripts.currentObject;
+        if (noahDestroyObject != null)
+        {
+            ObjData noahBiteDestroyData = noahBiteObject.GetComponent<ObjData>();
+            if (noahBiteDestroyData.ISBiteActive)
+            {
+                noahBiteDestroyData.IsDestroy = true;
+            }
+        }
     }
 
     void ChangeDestroyTrue()

@@ -556,6 +556,7 @@ MonoBehaviour:
   IsPushOrPress: 0
   IsSniff: 0
   IsBite: 0
+  IsDestroy: 0
   IsUpDown: 0
   IsInsert: 0
   IsObserve: 0
@@ -587,6 +588,7 @@ MonoBehaviour:
   IsPushOrPress: 0
   IsSniff: 0
   IsBite: 0
+  IsDestroy: 0
   IsUpDown: 0
   IsInsert: 0
   IsObserve: 0
@@ -913,6 +915,7 @@ MonoBehaviour:
   IsPushOrPress: 0
   IsSniff: 0
   IsBite: 0
+  IsDestroy: 0
   IsUpDown: 0
   IsInsert: 0
   IsObserve: 0
@@ -6684,18 +6687,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 986161350, guid: c6b43faf263d7e34cbe187faa257495c, type: 3}
-      propertyPath: m_Size.z
-      value: 2.5102859
-      objectReference: {fileID: 0}
-    - target: {fileID: 986161350, guid: c6b43faf263d7e34cbe187faa257495c, type: 3}
-      propertyPath: m_Center.z
-      value: -1.1616676
-      objectReference: {fileID: 0}
-    - target: {fileID: 1719228970, guid: c6b43faf263d7e34cbe187faa257495c, type: 3}
-      propertyPath: m_IsKinematic
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6271890255095929715, guid: c6b43faf263d7e34cbe187faa257495c, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -6755,22 +6746,6 @@ PrefabInstance:
     - target: {fileID: 6271890255095929718, guid: c6b43faf263d7e34cbe187faa257495c, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 6271890256200668739, guid: c6b43faf263d7e34cbe187faa257495c, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6271890256200668739, guid: c6b43faf263d7e34cbe187faa257495c, type: 3}
-      propertyPath: m_ReceiveShadows
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6271890256200668739, guid: c6b43faf263d7e34cbe187faa257495c, type: 3}
-      propertyPath: m_DynamicOccludee
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6271890256200668739, guid: c6b43faf263d7e34cbe187faa257495c, type: 3}
-      propertyPath: m_SkinnedMotionVectors
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8118700057688735759, guid: c6b43faf263d7e34cbe187faa257495c, type: 3}
       propertyPath: obj
@@ -9767,6 +9742,7 @@ MonoBehaviour:
   IsPushOrPress: 0
   IsSniff: 0
   IsBite: 0
+  IsDestroy: 0
   IsUpDown: 0
   IsInsert: 0
   IsObserve: 0
@@ -10047,6 +10023,7 @@ MonoBehaviour:
   IsPushOrPress: 0
   IsSniff: 0
   IsBite: 0
+  IsDestroy: 0
   IsUpDown: 0
   IsInsert: 0
   IsObserve: 0
