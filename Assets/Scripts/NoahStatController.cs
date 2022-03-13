@@ -11,6 +11,8 @@ public class NoahStatController : MonoBehaviour
     [SerializeField] Image[] statColor;
     [SerializeField] Image[] statBar;
 
+    [SerializeField] TMPro.TextMeshProUGUI conditionText;
+
     private int statColorIndex = 3;
     private int statBarIndex = 9;
     
@@ -39,6 +41,7 @@ public class NoahStatController : MonoBehaviour
                 Color statColor1 = statColor[1].GetComponent<Image>().color;
                 statColor1.a = 1f;
                 statColor[1].GetComponent<Image>().color = statColor1;
+                conditionText.text = "[상태] \"불안함\"";
             }
             else if(statBarIndex == 1)
             {
@@ -49,12 +52,14 @@ public class NoahStatController : MonoBehaviour
                 Color statColor0 = statColor[0].GetComponent<Image>().color;
                 statColor0.a = 1f;
                 statColor[0].GetComponent<Image>().color = statColor0;
+                conditionText.text = "[상태] \"나쁨\"";
             }
             else if(statBarIndex==0)
             {
                 Color statColor0 = statColor[0].GetComponent<Image>().color;
                 statColor0.a = 0f;
                 statColor[0].GetComponent<Image>().color = statColor0;
+                conditionText.text = "[상태] \"사망\"";
             }
             statBarIndex--;
             yield return new WaitForSeconds(1f); 

@@ -9,10 +9,13 @@ public class BiteDestroyButtonController : MonoBehaviour, IPointerEnterHandler, 
 { 
     public static BiteDestroyButtonController biteDestroyButtonController { get; private set; }
 
+
     void Awake()
     {
         biteDestroyButtonController = this;
     }
+
+    
 
     public Animator playerAnimation;
 
@@ -27,6 +30,11 @@ public class BiteDestroyButtonController : MonoBehaviour, IPointerEnterHandler, 
     public GameObject noahBiteObject;
     public GameObject myMouth;
 
+    void Start()
+    {
+        isPointerDown = false;
+        noahBiteObject = null;
+    }
 
     void Update()
     {
@@ -71,14 +79,26 @@ public class BiteDestroyButtonController : MonoBehaviour, IPointerEnterHandler, 
     public void OnPointerDown(PointerEventData eventData)
     {
         noahBiteObject = PlayerScripts.playerscripts.currentObject;
-        ObjData noahBiteData = noahBiteObject.GetComponent<ObjData>();
-        noahBiteData.IsBite = true;
-        biteDestroyButton.GetComponent<Image>().sprite = biteButtonClicked;
-        isPointerDown = true;
+        if(noahBiteObject!=null)
+        {
+            ObjData noahBiteData = noahBiteObject.GetComponent<ObjData>();
+            if (noahBiteData.ISBiteActive)
+            {
+                noahBiteData.IsBite = true;
+                biteDestroyButton.GetComponent<Image>().sprite = biteButtonClicked;
+                isPointerDown = true;
 
-        Invoke("ChangeBiteTrue", 0.5f);
-        Invoke("PlayerPickUp", 0.7f);
-        Invoke("ChangeBiteFalse", 1);
+                Invoke("ChangeBiteTrue", 0.5f);
+                Invoke("PlayerPickUp", 0.7f);
+                Invoke("ChangeBiteFalse", 1);
+            }
+            else
+            {
+                biteDestroyButton.GetComponent<Image>().sprite = biteButtonClicked;
+            }
+        }
+
+
     }
 
     void ChangeBiteTrue()

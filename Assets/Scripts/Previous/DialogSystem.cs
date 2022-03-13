@@ -42,7 +42,7 @@ public class DialogSystem : MonoBehaviour
     public void Smell()
     {
         DialogSmellText = PlayerScripts.playerscripts.PlayerSmellText;
-        smellpanel.SetActive(true);
+        //smellpanel.SetActive(true);
         smellText.text = DialogSmellText;
     }
 

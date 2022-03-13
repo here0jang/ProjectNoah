@@ -33,7 +33,7 @@ public class DigitalClock : MonoBehaviour
 
 
         float hoursPerDay = 24f;
-        string minutesString = Mathf.Floor(dayNormalized* hoursPerDay).ToString("00");
+        string minutesString = Mathf.Floor(dayNormalized* hoursPerDay+1).ToString("00");
 
 
 

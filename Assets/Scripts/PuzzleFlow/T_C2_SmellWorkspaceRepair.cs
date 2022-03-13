@@ -43,7 +43,10 @@ public class T_C2_SmellWorkspaceRepair : MonoBehaviour
         if (HealthMachineData.IsPushOrPress && HealthMachine_fixPartData.IsBite)
         {
             IsHealthMachineDone = true;
-
+            if (HealthMachine_fixPartData.IsBite)
+            {
+                IsHealthMachineDone = true;
+            }
         }
     }
 

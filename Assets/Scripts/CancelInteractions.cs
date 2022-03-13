@@ -15,46 +15,80 @@ public class CancelInteractions : MonoBehaviour
 
     void Update()
     {
-        /* 나중에 상호작용 여러 개 취소 할 때 취소 순서도 넣을 것. ex. 오르기+물기 -> 1) 내려와서 2) 내려놓기 */
         if (Input.GetMouseButtonDown(1))
         {
-            biteObject = BiteDestroyButtonController.biteDestroyButtonController.noahBiteObject;
-            upDownObject = InteractionButtonController.interactionButtonController.noahUpDownObject;
-            observeObject = InteractionButtonController.interactionButtonController.noahObserveObject;
 
-            
-            
-            
-            /* 관찰하기 취소 */
-            if (observeObject!=null)
+            if (BiteDestroyButtonController.biteDestroyButtonController.noahBiteObject != null)
             {
-                ObjData cancelObserveData = observeObject.GetComponent<ObjData>();
-
-                if (cancelObserveData.IsObserve)
-                {
-                    CameraController.cameraController.CancelObserve();
-                    cancelObserveData.IsObserve = false;
-                }
+                biteObject = BiteDestroyButtonController.biteDestroyButtonController.noahBiteObject;
+            }
+            if (InteractionButtonController.interactionButtonController.noahUpDownObject != null)
+            {
+                upDownObject = InteractionButtonController.interactionButtonController.noahUpDownObject;
+            }
+            if (InteractionButtonController.interactionButtonController.noahObserveObject != null)
+            {
+                observeObject = InteractionButtonController.interactionButtonController.noahObserveObject;
             }
 
-            /* 오르기 취소 */
-            if (upDownObject!=null)
+
+            /* 상호작용 취소 순서 : 관찰 -> 오르기 -> 물기 */
+            for (int i = 3; i>0; i--)
             {
-                ObjData cancelUpDownData = upDownObject.GetComponent<ObjData>();
-                if (cancelUpDownData.IsUpDown)
-                {
-                    if (Agent.enabled)
+                /* 관찰하기 취소 */
+                if (i==3 && observeObject != null)
+                {   
+                    ObjData cancelObserveData = observeObject.GetComponent<ObjData>();
+                    if (cancelObserveData.IsObserve)
                     {
-                        noahPosition.transform.position = new Vector3(upDownObject.transform.localPosition.x, 33.78f, upDownObject.transform.localPosition.z);
-                        Agent.updatePosition = true;
-                        Agent.updateRotation = true;
-                        Agent.isStopped = false;
+                        CameraController.cameraController.CancelObserve();
+
+                        //Invoke("ObservingAnimation", 0.00000001f);
+                        //Invoke("Observing2Animation", 0.00000001f);
+                        Invoke("CancelObserving2Animation", 1f);
+                        Invoke("CancelObservingAnimation", 1f);
+                        cancelObserveData.IsObserve = false;
+                        break;
                     }
-                    cancelUpDownData.IsUpDown = false;
+                    else
+                    {
+                        continue;
+                    }
+                }/* 오르기 취소 */
+                else if(i == 2 && upDownObject != null)
+                {
+                    ObjData cancelUpDownData = upDownObject.GetComponent<ObjData>();
+                    if (cancelUpDownData.IsUpDown)
+                    {
+                        if (Agent.enabled)
+                        {
+                            noahPosition.transform.position = new Vector3(upDownObject.transform.localPosition.x, 33.78f, upDownObject.transform.localPosition.z);
+                            Agent.updatePosition = true;
+                            Agent.updateRotation = true;
+                            Agent.isStopped = false;
+                        }
+                        cancelUpDownData.IsUpDown = false;
+                        break;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }/* 물기 취소 */
+                else if(i==1&& biteObject != null)
+                {
+                    ObjData cancelBiteData = biteObject.GetComponent<ObjData>();
+                    if (cancelBiteData.IsBite)
+                    {
+                        playerAnimation.SetBool("IsPutDowning", true);
+                        Invoke("CancelBitingAnimation", 1f);
+                        Invoke("PutDownObject", 0.5f);
+                        cancelBiteData.IsBite = false;
+                        break;
+                    }
                 }
             }
 
-        
             /* 밀기 취소 */
             if (InteractionButtonController.ISPUSH)
             {
@@ -69,28 +103,73 @@ public class CancelInteractions : MonoBehaviour
                     InteractionButtonController.interactionButtonController.ispush = false;
                 }
 
-                if(noahNovepushobject!=null)
+                if (noahNovepushobject != null)
                 {
                     playerAnimation.SetBool("IsPushing", false);
                     noahNovepushobject.transform.SetParent(null, true);
                     noahNovepushobject.transform.parent = moveableGroup.transform; // 다시 무바블오브젝트의 자식으로 넣기
                     InteractionButtonController.interactionButtonController.ispush = false;
-                }               
-            }
 
-            /* 물기 취소 */
-            if (biteObject != null)
-            {
-                ObjData cancelBiteData = biteObject.GetComponent<ObjData>();
-                if (cancelBiteData.IsBite)
-                {
-                    playerAnimation.SetBool("IsPutDowning", true);
-                    Invoke("CancelBitingAnimation", 1f);
-                    Invoke("PutDownObject", 0.5f);
-                    cancelBiteData.IsBite = false;
 
                 }
             }
+
+
+            ///* 관찰하기 취소 */
+            //if (observeObject!=null)
+            //{
+            //    ObjData cancelObserveData = observeObject.GetComponent<ObjData>();
+
+
+            //    if (cancelObserveData.IsObserve)
+            //    {
+
+            //        CameraController.cameraController.CancelObserve();
+
+            //        //Invoke("ObservingAnimation", 0.00000001f);
+            //        //Invoke("Observing2Animation", 0.00000001f);
+            //        Invoke("CancelObserving2Animation", 1f);
+            //        Invoke("CancelObservingAnimation", 1f);
+                    
+                    
+            //        cancelObserveData.IsObserve = false;
+
+            //    }
+            //}
+
+            ///* 오르기 취소 */
+            //if (upDownObject!=null)
+            //{
+            //    ObjData cancelUpDownData = upDownObject.GetComponent<ObjData>();
+            //    if (cancelUpDownData.IsUpDown)
+            //    {
+            //        if (Agent.enabled)
+            //        {
+            //            noahPosition.transform.position = new Vector3(upDownObject.transform.localPosition.x, 33.78f, upDownObject.transform.localPosition.z);
+            //            Agent.updatePosition = true;
+            //            Agent.updateRotation = true;
+            //            Agent.isStopped = false;
+            //        }
+            //        cancelUpDownData.IsUpDown = false;
+            //    }
+            //}
+
+        
+
+
+            ///* 물기 취소 */
+            //if (biteObject != null)
+            //{
+            //    ObjData cancelBiteData = biteObject.GetComponent<ObjData>();
+            //    if (cancelBiteData.IsBite)
+            //    {
+            //        playerAnimation.SetBool("IsPutDowning", true);
+            //        Invoke("CancelBitingAnimation", 1f);
+            //        Invoke("PutDownObject", 0.5f);
+            //        cancelBiteData.IsBite = false;
+
+            //    }
+            //}
         }
     }
 
@@ -102,7 +181,32 @@ public class CancelInteractions : MonoBehaviour
     {
         biteObject.GetComponent<Rigidbody>().isKinematic = false; 
         biteObject.transform.parent = null;
-        biteObject.transform.position = new Vector3(biteObject.transform.position.x, 33.799f, biteObject.transform.position.z);
+        biteObject.transform.position = new Vector3(biteObject.transform.position.x, 33.8f, biteObject.transform.position.z);
+    }
+
+    void Observing2Animation()
+    {
+        playerAnimation.SetBool("IsObserving2", true);
+    }
+
+    void ObservingAnimation()
+    {
+        playerAnimation.SetBool("IsObserving", true);
+    }
+
+    void CancelObserving2Animation()
+    {
+        playerAnimation.SetBool("IsObserving2", false);
+    }
+
+    void CancelObservingAnimation()
+    {
+        playerAnimation.SetBool("IsObserving", false);
+    }
+
+    IEnumerator WaitForSec()
+    {
+        yield return new WaitForSeconds(2f);
     }
 }
 

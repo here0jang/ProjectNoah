@@ -29,7 +29,7 @@ public class PlayerScripts : MonoBehaviour
 
     /* 상호작용 오브젝트로부터 받아온 데이터 담는 변수 */
     private string smellData;
-    private Button pushOrPressButtonData, centerButtonData;
+    private Button pushOrPressButtonData, centerButtonData, centerPlusButtonData;
     private Transform observeData, ObservePlusData; // ObservePlusData : 박스 위에서 관찰 등
     
 
@@ -69,6 +69,8 @@ public class PlayerScripts : MonoBehaviour
         {
            Onclick();
            rectTransform.anchoredPosition = Input.mousePosition;
+           //interactionButtonPosition = Input.mousePosition;
+           //rectTransform.anchoredPosition = Input.mousePosition;
         }
 
         // 회전하는 중이고(참) && 플레이어의 현재 각도와 초기 각도가 다르면??  // Q. 여기 if 문이 뭔일하는지 솔직히 모르겠음
@@ -118,6 +120,7 @@ public class PlayerScripts : MonoBehaviour
                     smellData = objData.SmellText;
                     pushOrPressButtonData = objData.PushOrPressButton;
                     centerButtonData = objData.CenterButton;
+                    centerPlusButtonData = objData.CenterPlusButton;
                     observeData = objData.ObserveView;
                     ObservePlusData = objData.ObservePlusView;
                 }
@@ -126,13 +129,6 @@ public class PlayerScripts : MonoBehaviour
                 {
                     currentObject = hit.collider.gameObject;
                     NPCPosition = interactable.transform.position;
-                    float interactButtonPositionX = 750 + 42 * (NPCPosition.x - 5);
-                    if(hit.collider.name == "Console_Left_ResetButton" || hit.collider.name == "Console_Left_UnLockButton")
-                    {
-                        interactionButtons.gameObject.transform.position = new Vector3(interactionButtonPosition.x, interactionButtonPosition.y, 0);
-                    }
-                    else
-                        interactionButtons.gameObject.transform.position = new Vector3(interactButtonPositionX, interactionButtonPosition.y, 0);
 
                     Vector3 offset = PlayerPosition - NPCPosition;
                     float sqrLen = offset.sqrMagnitude; // 플레이어의 이동 전 현재 위치와 오브젝트 사이의 거리
@@ -140,16 +136,17 @@ public class PlayerScripts : MonoBehaviour
                     MovePlayer(interactable.InteractPosition()); // NPC 의 위치로 플레이어를 이동시킴
                     if (sqrLen < DistanceBetweenPlayerandNPC)
                     {
-
+                        //rectTransform.anchoredPosition = interactionButtonPosition;
                         interactable.Interact(this); // this : PlayerScript 전달 ( argument ), 현재 PlayerScript 에 있으므로 this 로 전달 가능
-                        if (hit.collider.name == "DoorLocked")
-                        {
-                            IsDoorClicked = true;
-                            if (IsDoorLocked)
-                            {
-                                DialogManager.dialogManager.DoorLock();
-                            }
-                        }
+                        
+                        //if (hit.collider.name == "DoorLocked")
+                        //{
+                        //    IsDoorClicked = true;
+                        //    if (IsDoorLocked)
+                        //    {
+                        //        DialogManager.dialogManager.DoorLock();
+                        //    }
+                        //}
                     } // 순서가 : PlayerScripts 에서 NPC 클릭 -> Interactable 스크립트 - Interact - actions -> messageAction 실행 - > DialogSystem - ShowMessages 실행 
                 }
 
@@ -165,6 +162,7 @@ public class PlayerScripts : MonoBehaviour
     public string PlayerSmellText { get { return smellData; } }
     public Button ObjectpushOrpressbutton { get { return pushOrPressButtonData; } }
     public Button ObjectCenterButton { get { return centerButtonData; } }
+    public Button ObjectCenterPlusButton { get { return centerPlusButtonData; } }
     public Transform PlayerobserveView { get { return observeData; } }
     public Transform PlayerobserveBoxView { get { return ObservePlusData; } }
 
