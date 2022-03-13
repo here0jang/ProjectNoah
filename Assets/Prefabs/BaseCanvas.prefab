@@ -2196,12 +2196,15 @@ MonoBehaviour:
   observeButton: {fileID: 6855707438332471591}
   noah: {fileID: 0}
   noahPlayer: {fileID: 0}
-  isObserve: 0
   isBark: 0
-  isGround: 1
   playerRigidbody: {fileID: 0}
   playerAgent: {fileID: 0}
-  noahClimbObject: {fileID: 0}
+  noahPushOrPressObject: {fileID: 0}
+  noahSniffObject: {fileID: 0}
+  noahBarkObject: {fileID: 0}
+  noahUpDownObject: {fileID: 0}
+  noahInsertObject: {fileID: 0}
+  noahObserveObject: {fileID: 0}
   goToWork: {fileID: 0}
   noahPushObject: {fileID: 0}
   ispush: 0
@@ -5187,7 +5190,6 @@ MonoBehaviour:
   destroyButtonMouseOver: {fileID: 21300000, guid: 9d0e21ec700d39f478e21b2e5cc3f30b, type: 3}
   noahBiteObject: {fileID: 0}
   myMouth: {fileID: 0}
-  isBite: 0
 --- !u!1 &6855707438771366418
 GameObject:
   m_ObjectHideFlags: 0
